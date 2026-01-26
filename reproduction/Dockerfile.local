@@ -1,6 +1,33 @@
-# Dockerfile for running locally-built Vector binary
-# This uses ARM64 Debian to match the Mac ARM64 architecture
+# Dockerfile for building and running Vector locally
+# Multi-stage build: compile for Linux ARM64, then create runtime image
 
+# Build stage
+FROM --platform=linux/arm64 rust:1.92-bookworm as builder
+
+WORKDIR /vector
+
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        cmake \
+        libssl-dev \
+        pkg-config \
+        protobuf-compiler \
+        zlib1g-dev \
+        clang \
+        libclang-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the entire source
+COPY . .
+
+# Build Vector for Linux ARM64
+# Remove rust-toolchain.toml to use the pre-installed Rust 1.92 from the base image
+RUN rm -f rust-toolchain.toml && \
+    cargo build --release --no-default-features --features "sources-kafka,sinks-http,transforms-remap,unix"
+
+# Runtime stage
 FROM --platform=linux/arm64 debian:bookworm-slim
 
 # Install runtime dependencies
@@ -12,8 +39,8 @@ RUN apt-get update && \
         zlib1g && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy the locally-built Vector binary
-COPY ../target/release/vector /usr/local/bin/vector
+# Copy the binary from builder
+COPY --from=builder /vector/target/release/vector /usr/local/bin/vector
 
 # Make it executable
 RUN chmod +x /usr/local/bin/vector
@@ -24,5 +51,11 @@ RUN mkdir -p /var/lib/vector
 # Smoke test
 RUN /usr/local/bin/vector --version
 
-ENTRYPOINT ["/usr/local/bin/vector"]
+# Create entrypoint script
+RUN echo '#!/bin/sh' > /entrypoint.sh && \
+    echo 'exec "$@"' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/sh"]
 

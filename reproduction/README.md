@@ -4,17 +4,31 @@ This directory contains a complete, automated reproduction of a critical data lo
 
 ## Quick Start
 
+### Using DockerHub Image (Default)
+
 ```bash
 cd reproduction
 ./reproduce.sh
 ```
 
+### Using Locally-Built Vector
+
+```bash
+cd reproduction
+./reproduce.sh --local
+```
+
 The script will automatically:
-1. Build a custom Vector binary with your local changes
-2. Start all required services (Kafka, Zookeeper, Vector, Mock HTTP Sink)
+1. Start Vector (either from DockerHub or build from local source)
+2. Start all required services (Kafka, Zookeeper, Mock HTTP Sink)
 3. Send 3 test messages with alternating valid/invalid auth tokens
 4. Demonstrate that message 2 is permanently lost
 5. Save detailed logs to `reproduction_debug_output.txt`
+
+### Options
+
+- **Default mode**: Uses Vector 0.52.0 from DockerHub (faster, no build required)
+- **`--local` mode**: Builds Vector from your local source code (useful for testing fixes)
 
 ## Expected Output
 
