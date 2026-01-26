@@ -2,9 +2,14 @@
 
 set -e
 
+# Output file for debug logs
+OUTPUT_FILE="reproduction_debug_output.txt"
+
 echo "=========================================="
 echo "Vector Kafka Data Loss Bug Reproduction"
 echo "=========================================="
+echo ""
+echo "Debug output will be saved to: $OUTPUT_FILE"
 echo ""
 
 # Colors for output
@@ -15,6 +20,15 @@ NC='\033[0m' # No Color
 
 # Change to the reproduction directory
 cd "$(dirname "$0")"
+
+# Start logging to file
+exec > >(tee -a "$OUTPUT_FILE") 2>&1
+
+echo "=========================================="
+echo "Debug Reproduction Run"
+echo "Started at: $(date)"
+echo "=========================================="
+echo ""
 
 echo "Step 1: Starting Docker Compose services..."
 docker-compose down -v 2>/dev/null || true
@@ -163,8 +177,28 @@ docker-compose logs vector | grep -i "drop" | tail -10
 
 echo ""
 echo "=========================================="
+echo "Full Vector Debug Logs"
+echo "=========================================="
+echo ""
+echo "Capturing full Vector logs with debug output..."
+echo ""
+docker-compose logs vector
+
+echo ""
+echo "=========================================="
+echo "Full Mock Sink Logs"
+echo "=========================================="
+echo ""
+docker-compose logs mock-sink
+
+echo ""
+echo "=========================================="
 echo "Cleanup"
 echo "=========================================="
+echo ""
+echo "Completed at: $(date)"
+echo ""
+echo "Debug output saved to: $OUTPUT_FILE"
 echo ""
 echo "To view full logs: docker-compose logs"
 echo "To stop services: docker-compose down -v"

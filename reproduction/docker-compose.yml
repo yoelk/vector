@@ -45,7 +45,8 @@ services:
       - mock-sink
     volumes:
       - ./vector.yaml:/etc/vector/vector.yaml
-    command: ["--config", "/etc/vector/vector.yaml", "--watch-config"]
+    command: ["--config", "/etc/vector/vector.yaml", "--watch-config", "-vvv"]
     environment:
-      - VECTOR_LOG=debug
+      - VECTOR_LOG=trace
+      - RUST_BACKTRACE=full
 
