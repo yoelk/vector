@@ -1,0 +1,46 @@
+data_dir: /var/lib/vector
+
+# Kafka source
+sources:
+  kafka_source:
+    type: kafka
+    bootstrap_servers: "kafka:29092"
+    group_id: "vector-test-group"
+    topics:
+      - "test-topic"
+    auto_offset_reset: "earliest"
+
+    # Commit interval - how often Kafka commits offsets
+    commit_interval_ms: 5000
+
+    decoding:
+      codec: json
+
+# HTTP sink that will receive events
+sinks:
+  http_sink:
+    type: http
+    inputs:
+      - kafka_source
+    uri: "http://mock-sink:8080/events"
+    encoding:
+      codec: json
+
+    # CRITICAL: Acknowledgements must be enabled to reproduce the bug
+    acknowledgements:
+      enabled: true
+
+    # Authentication header - VALID TOKEN
+    auth:
+      strategy: bearer
+      token: "valid-token"
+
+    # Batch settings
+    batch:
+      max_events: 10
+      timeout_secs: 1
+
+    # Request settings
+    request:
+      retry_attempts: 0  # Don't retry - we want to see immediate failures
+

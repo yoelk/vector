@@ -44,9 +44,14 @@ services:
       - kafka
       - mock-sink
     volumes:
-      - ./vector.yaml:/etc/vector/vector.yaml
+      - ./good_token.yaml:/etc/vector/configs/good_token.yaml:ro
+      - ./bad_token.yaml:/etc/vector/configs/bad_token.yaml:ro
+      - vector-config:/etc/vector
     command: ["--config", "/etc/vector/vector.yaml", "--watch-config", "-vvv"]
     environment:
       - VECTOR_LOG=trace
       - RUST_BACKTRACE=full
+
+volumes:
+  vector-config:
 

@@ -490,3 +490,1473 @@ Debug output saved to: reproduction_debug_output.txt
 To view full logs: docker-compose logs
 To stop services: docker-compose down -v
 
+==========================================
+Debug Reproduction Run
+Started at: Mon Jan 26 21:31:04 CET 2026
+==========================================
+
+Step 1: Starting Docker Compose services...
+time="2026-01-26T21:31:15+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network reproduction_default  Creating
+ Network reproduction_default  Created
+ Container reproduction-zookeeper-1  Creating
+ Container reproduction-mock-sink-1  Creating
+ Container reproduction-zookeeper-1  Created
+ Container reproduction-kafka-1  Creating
+ Container reproduction-mock-sink-1  Created
+ Container reproduction-kafka-1  Created
+ Container reproduction-vector-1  Creating
+ Container reproduction-vector-1  Created
+ Container reproduction-zookeeper-1  Starting
+ Container reproduction-mock-sink-1  Starting
+ Container reproduction-mock-sink-1  Started
+ Container reproduction-zookeeper-1  Started
+ Container reproduction-kafka-1  Starting
+ Container reproduction-kafka-1  Started
+ Container reproduction-vector-1  Starting
+ Container reproduction-vector-1  Started
+
+Step 2: Waiting for services to be ready...
+  - Waiting for Kafka... [0;32m✓[0m
+  - Waiting for mock sink... [0;32m✓[0m
+  - Waiting for Vector... [0;32m✓[0m
+
+Step 3: Creating Kafka topic...
+time="2026-01-26T21:31:29+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Created topic test-topic.
+
+Step 4: Waiting for Vector to be ready...
+[0;32m✓[0m Vector ready (started with good token config)
+
+==========================================
+Starting Reproduction Test
+==========================================
+
+[0;32mPhase 1: Sending 1 message with VALID token[0m
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:31:35+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 1-1)
+
+[0;31mPhase 2: Sending 1 message with INVALID token[0m
+[1;33mSwitching to INVALID token config...[0m
+time="2026-01-26T21:31:45+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:31:45+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+      token: "invalid-token"
+  Waiting for Vector to reload...
+  [0;32m✓[0m Vector reloaded
+[1;33mSending 1 messages (invalid token - THIS WILL BE LOST)...[0m
+time="2026-01-26T21:31:46+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 2-2)
+
+[0;32mPhase 3: Sending 1 message with VALID token again[0m
+[1;33mSwitching to VALID token config...[0m
+time="2026-01-26T21:31:56+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+cp: '/etc/vector/good_token.yaml' and '/etc/vector/vector.yaml' are the same file
+
+==========================================
+Debug Reproduction Run
+Started at: Mon Jan 26 21:32:35 CET 2026
+==========================================
+
+Step 1: Starting Docker Compose services...
+time="2026-01-26T21:32:46+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network reproduction_default  Creating
+ Network reproduction_default  Created
+ Volume "reproduction_vector-config"  Creating
+ Volume "reproduction_vector-config"  Created
+ Container reproduction-mock-sink-1  Creating
+ Container reproduction-zookeeper-1  Creating
+ Container reproduction-zookeeper-1  Created
+ Container reproduction-kafka-1  Creating
+ Container reproduction-mock-sink-1  Created
+ Container reproduction-kafka-1  Created
+ Container reproduction-vector-1  Creating
+ Container reproduction-vector-1  Created
+ Container reproduction-mock-sink-1  Starting
+ Container reproduction-zookeeper-1  Starting
+ Container reproduction-mock-sink-1  Started
+ Container reproduction-zookeeper-1  Started
+ Container reproduction-kafka-1  Starting
+ Container reproduction-kafka-1  Started
+ Container reproduction-vector-1  Starting
+ Container reproduction-vector-1  Started
+
+Step 2: Waiting for services to be ready...
+  - Waiting for Kafka... [0;32m✓[0m
+  - Waiting for mock sink... [0;32m✓[0m
+  - Waiting for Vector... [0;32m✓[0m
+
+Step 3: Creating Kafka topic...
+time="2026-01-26T21:32:59+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Created topic test-topic.
+
+Step 4: Initialize Vector with good token config...
+time="2026-01-26T21:33:01+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Waiting for Vector to load config...
+[0;32m✓[0m Vector ready (started with good token config)
+
+==========================================
+Starting Reproduction Test
+==========================================
+
+[0;32mPhase 1: Sending 1 message with VALID token[0m
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:33:06+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 1-1)
+
+[0;31mPhase 2: Sending 1 message with INVALID token[0m
+[1;33mSwitching to INVALID token config...[0m
+time="2026-01-26T21:33:15+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:33:15+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+      token: "invalid-token"
+  Waiting for Vector to reload...
+  [0;32m✓[0m Vector reloaded
+[1;33mSending 1 messages (invalid token - THIS WILL BE LOST)...[0m
+time="2026-01-26T21:33:16+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 2-2)
+
+[0;32mPhase 3: Sending 1 message with VALID token again[0m
+[1;33mSwitching to VALID token config...[0m
+time="2026-01-26T21:33:26+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:33:26+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+      token: "invalid-token"
+  Waiting for Vector to reload...
+  [0;32m✓[0m Vector reloaded
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:33:27+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 3-3)
+
+==========================================
+Test Results
+==========================================
+
+Querying mock sink for received events...
+
+Expected: 3 messages sent (IDs 1, 2, 3)
+Actual:   0 messages received
+
+[1;33m⚠ Unexpected result: 0 messages received[0m
+
+==========================================
+Logs
+==========================================
+
+Mock sink logs (showing rejections):
+time="2026-01-26T21:33:41+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+mock-sink-1  | [2026-01-26T20:33:12.218453] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  | [2026-01-26T20:33:18.283285] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  | [2026-01-26T20:33:29.005087] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+
+Vector logs (showing dropped events):
+time="2026-01-26T21:33:41+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+vector-1  | 2026-01-26T20:33:12.227286Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+vector-1  | 2026-01-26T20:33:18.282632Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294242Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector::sinks::util::retries: Internal log [Not retriable; dropping the request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294262Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector_common::internal_event::component_events_dropped: Internal log [Events dropped] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:29.002866Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002884Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:33:29.006181Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector::sinks::util::retries: Internal log [Not retriable; dropping the request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006192Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector::sinks::util::retries: Not retriable; dropping the request. reason="Http status: 401 Unauthorized"
+vector-1  | 2026-01-26T20:33:29.006248Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::component_events_dropped: Internal log [Events dropped] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006253Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+
+==========================================
+Full Vector Debug Logs
+==========================================
+
+Capturing full Vector logs with debug output...
+
+time="2026-01-26T21:33:41+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+vector-1  | 2026-01-26T20:32:49.550904Z DEBUG vector::app: Internal log rate limit configured. internal_log_rate_secs=10
+vector-1  | 2026-01-26T20:32:49.551029Z  INFO vector::app: Log level is enabled. level="trace"
+vector-1  | 2026-01-26T20:32:49.551125Z DEBUG vector::app: Building runtime. worker_threads=7
+vector-1  | 2026-01-26T20:32:49.551275Z TRACE mio::poll: registering event source with poller: token=Token(1), interests=READABLE
+vector-1  | 2026-01-26T20:32:49.552127Z  INFO vector::app: Loading configs. paths=["/etc/vector/vector.yaml"]
+vector-1  | 2026-01-26T20:32:49.556371Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:32:49.685212Z  INFO vector::app: Starting watcher. paths=["/etc/vector/vector.yaml"]
+vector-1  | 2026-01-26T20:32:49.685300Z  INFO vector::app: Components to watch. paths=[ComponentConfig { config_paths: [], component_key: ComponentKey { id: "parse_logs" }, component_type: Transform }, ComponentConfig { config_paths: [], component_key: ComponentKey { id: "print" }, component_type: Sink }]
+vector-1  | 2026-01-26T20:32:49.685333Z  INFO vector::config::watcher: Creating configuration file watcher.
+vector-1  | 2026-01-26T20:32:49.685368Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:49.688100Z  INFO vector::config::watcher: Watching configuration files.
+vector-1  | 2026-01-26T20:32:49.688467Z DEBUG vector::topology::builder: Building new source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:32:49.691549Z DEBUG vector::topology::builder: Building new transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:32:49.693238Z DEBUG vector::topology::builder: Building new sink. component_id=print
+vector-1  | 2026-01-26T20:32:49.694425Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:32:49.694816Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:32:49.694863Z DEBUG vector::topology::running: Configuring outputs for source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:32:49.694902Z DEBUG vector::topology::running: Configuring output for component. component_id=dummy_logs output_id=None
+vector-1  | 2026-01-26T20:32:49.694922Z DEBUG vector::topology::running: Configuring outputs for transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:32:49.694947Z DEBUG vector::topology::running: Configuring output for component. component_id=parse_logs output_id=None
+vector-1  | 2026-01-26T20:32:49.694966Z DEBUG vector::topology::running: Connecting inputs for transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:32:49.695508Z DEBUG vector::topology::running: Adding component input to fanout. component_id=parse_logs fanout_id=dummy_logs
+vector-1  | 2026-01-26T20:32:49.695531Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=print
+vector-1  | 2026-01-26T20:32:49.695551Z DEBUG vector::topology::running: Adding component input to fanout. component_id=print fanout_id=parse_logs
+vector-1  | 2026-01-26T20:32:49.695599Z DEBUG vector::topology::running: Spawning new source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:32:49.695624Z DEBUG vector::topology::running: Spawning new transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:32:49.695631Z TRACE vector::topology::running: Spawning new sink. component_id=print
+vector-1  | 2026-01-26T20:32:49.695695Z  INFO vector: Vector has started. debug="false" version="0.52.0" arch="aarch64" revision="ca5bf26 2025-12-16 14:56:07.290167996"
+vector-1  | 2026-01-26T20:32:49.695705Z  INFO vector::app: API is disabled, enable by setting `api.enabled` to `true` and use commands like `vector top`.
+vector-1  | 2026-01-26T20:32:49.695887Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump supervisor starting.
+vector-1  | 2026-01-26T20:32:49.696355Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump starting.
+vector-1  | 2026-01-26T20:32:49.696361Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source starting.
+vector-1  | 2026-01-26T20:32:49.696393Z DEBUG transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector::topology::builder: Synchronous transform starting.
+vector-1  | 2026-01-26T20:32:49.696633Z DEBUG sink{component_kind="sink" component_id=print component_type=console}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:32:49.696744Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:32:49.697927Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:32:49.697951Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Bytes received. byte_size=0 protocol=none
+vector-1  | 2026-01-26T20:32:49.697958Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Received one event.
+vector-1  | 2026-01-26T20:32:49.713658Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Events received. count=1 byte_size=144
+vector-1  | 2026-01-26T20:32:49.714989Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:32:49.715055Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=255 output=_default
+vector-1  | 2026-01-26T20:32:49.715120Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "parse_logs" })
+vector-1  | 2026-01-26T20:32:49.715333Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:49.715533Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:32:49.715575Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Events received. count=1 byte_size=255
+vector-1  | 2026-01-26T20:32:49.725545Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "print" })
+vector-1  | 2026-01-26T20:32:49.725765Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:32:49.725860Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:32:49.725913Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=244 output=_default
+vector-1  | 2026-01-26T20:32:49.725980Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Events received. count=1 byte_size=244
+vector-1  | 2026-01-26T20:32:49.726360Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=242
+vector-1  | 2026-01-26T20:32:49.726414Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Bytes sent. byte_size=280 protocol=console
+vector-1  | {
+vector-1  |   "appname": "Scarface",
+vector-1  |   "facility": "ntp",
+vector-1  |   "hostname": "names.amazon",
+vector-1  |   "message": "A bug was encountered but not in Vector, which doesn't have bugs",
+vector-1  |   "msgid": "ID949",
+vector-1  |   "procid": 6296,
+vector-1  |   "severity": "emerg",
+vector-1  |   "timestamp": "2026-01-26T20:32:49.697Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "AnthraX",
+vector-1  |   "facility": "local2",
+vector-1  |   "hostname": "some.tv",
+vector-1  |   "message": "Pretty pretty pretty good",
+vector-1  |   "msgid": "ID987",
+vector-1  |   "procid": 2627,
+vector-1  |   "severity": "emerg",
+vector-1  |   "timestamp": "2026-01-26T20:32:50.700Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | 2026-01-26T20:32:50.699907Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.700066Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.700128Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701295Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701346Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701380Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701397Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701448Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701482Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701493Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701510Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701547Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:32:50.701585Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] is being suppressed to avoid flooding.
+vector-1  | {
+vector-1  |   "appname": "KarimMove",
+vector-1  |   "facility": "user",
+vector-1  |   "hostname": "names.axa",
+vector-1  |   "message": "Great Scott! We're never gonna reach 88 mph with the flux capacitor in its current state!",
+vector-1  |   "msgid": "ID277",
+vector-1  |   "procid": 3089,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:32:51.698Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "BryanHorsey",
+vector-1  |   "facility": "lpr",
+vector-1  |   "hostname": "names.silk",
+vector-1  |   "message": "#hugops to everyone who has to deal with this",
+vector-1  |   "msgid": "ID137",
+vector-1  |   "procid": 9099,
+vector-1  |   "severity": "notice",
+vector-1  |   "timestamp": "2026-01-26T20:32:52.698Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "devankoshal",
+vector-1  |   "facility": "uucp",
+vector-1  |   "hostname": "random.giving",
+vector-1  |   "message": "#hugops to everyone who has to deal with this",
+vector-1  |   "msgid": "ID691",
+vector-1  |   "procid": 9903,
+vector-1  |   "severity": "alert",
+vector-1  |   "timestamp": "2026-01-26T20:32:53.697Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "b0rnc0nfused",
+vector-1  |   "facility": "local5",
+vector-1  |   "hostname": "names.bridgestone",
+vector-1  |   "message": "#hugops to everyone who has to deal with this",
+vector-1  |   "msgid": "ID928",
+vector-1  |   "procid": 9011,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:32:54.701Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "AnthraX",
+vector-1  |   "facility": "news",
+vector-1  |   "hostname": "make.news",
+vector-1  |   "message": "You're not gonna believe what just happened",
+vector-1  |   "msgid": "ID351",
+vector-1  |   "procid": 7550,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:32:55.698Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "ahmadajmi",
+vector-1  |   "facility": "local3",
+vector-1  |   "hostname": "for.epson",
+vector-1  |   "message": "Pretty pretty pretty good",
+vector-1  |   "msgid": "ID631",
+vector-1  |   "procid": 3758,
+vector-1  |   "severity": "err",
+vector-1  |   "timestamp": "2026-01-26T20:32:56.702Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "jesseddy",
+vector-1  |   "facility": "local4",
+vector-1  |   "hostname": "we.to",
+vector-1  |   "message": "Pretty pretty pretty good",
+vector-1  |   "msgid": "ID103",
+vector-1  |   "procid": 6753,
+vector-1  |   "severity": "notice",
+vector-1  |   "timestamp": "2026-01-26T20:32:57.698Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "meln1ks",
+vector-1  |   "facility": "clockd",
+vector-1  |   "hostname": "random.bio",
+vector-1  |   "message": "A bug was encountered but not in Vector, which doesn't have bugs",
+vector-1  |   "msgid": "ID196",
+vector-1  |   "procid": 2537,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:32:58.704Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:32:59.699338Z TRACE vector: Internal log [Beep.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:32:59.699392Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:32:59.699304Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:32:59.699418Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Bytes received. byte_size=0 protocol=none
+vector-1  | 2026-01-26T20:32:59.699429Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:32:59.699434Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Received one event.
+vector-1  | {
+vector-1  |   "appname": "AmbientTech",
+vector-1  |   "facility": "auth",
+vector-1  |   "hostname": "random.moto",
+vector-1  |   "message": "There's a breach in the warp core, captain",
+vector-1  |   "msgid": "ID606",
+vector-1  |   "procid": 7252,
+vector-1  |   "severity": "err",
+vector-1  |   "timestamp": "2026-01-26T20:32:59.699Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:33:00.699044Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:00.699073Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:00.699103Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:00.699331Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699347Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Events received. count=1 byte_size=149
+vector-1  | 2026-01-26T20:33:00.699381Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 21 times.
+vector-1  | 2026-01-26T20:33:00.699386Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:33:00.699390Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699393Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=260 output=_default
+vector-1  | 2026-01-26T20:33:00.699420Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:00.699434Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699437Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:33:00.699457Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699476Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Events received. count=1 byte_size=260
+vector-1  | 2026-01-26T20:33:00.699576Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699590Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:33:00.699594Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699596Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:33:00.699600Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699602Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=249 output=_default
+vector-1  | 2026-01-26T20:33:00.699615Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699617Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Events received. count=1 byte_size=249
+vector-1  | {
+vector-1  |   "appname": "b0rnc0nfused",
+vector-1  |   "facility": "user",
+vector-1  |   "hostname": "make.pictures",
+vector-1  |   "message": "A bug was encountered but not in Vector, which doesn't have bugs",
+vector-1  |   "msgid": "ID890",
+vector-1  |   "procid": 9842,
+vector-1  |   "severity": "crit",
+vector-1  | 2026-01-26T20:33:00.699664Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699677Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=247
+vector-1  | 2026-01-26T20:33:00.699682Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:00.699684Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Bytes sent. byte_size=285 protocol=console
+vector-1  |   "timestamp": "2026-01-26T20:33:00.699Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:33:01.062120Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:33:01.062141Z TRACE notify::inotify: inotify event: Event { wd: WatchDescriptor { id: 1, fd: (Weak) }, mask: EventMask(OPEN), cookie: 0, name: None }
+vector-1  | 2026-01-26T20:33:01.062190Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.062337Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:01.062360Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:01.698359Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698396Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698412Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698423Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698481Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698501Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698506Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698515Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | {
+vector-1  |   "appname": "jesseddy",
+vector-1  |   "facility": "news",
+vector-1  |   "hostname": "names.gmx",
+vector-1  |   "message": "There's a breach in the warp core, captain",
+vector-1  | 2026-01-26T20:33:01.698546Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:01.698559Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] is being suppressed to avoid flooding.
+vector-1  |   "msgid": "ID408",
+vector-1  |   "procid": 7850,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:33:01.698Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:33:02.065056Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:33:02.065349Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:33:02.065371Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:33:02.065691Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:02.066402Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:33:02.071691Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:33:02.071830Z DEBUG vector::topology::running: Removing source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:33:02.071967Z DEBUG vector::topology::running: Waiting for up to 30 seconds for source(s) to finish shutting down.
+vector-1  | 2026-01-26T20:33:02.701806Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source finished normally.
+vector-1  | 2026-01-26T20:33:02.701838Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump finished normally.
+vector-1  | 2026-01-26T20:33:02.701850Z DEBUG vector::topology::running: Removing transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:33:02.701875Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump supervisor task finished normally.
+vector-1  | 2026-01-26T20:33:02.701892Z DEBUG vector::topology::running: Removing sink. component_id=print
+vector-1  | 2026-01-26T20:33:02.701914Z DEBUG vector::topology::builder: Building new source. component_id=kafka_source
+vector-1  | 2026-01-26T20:33:02.701937Z DEBUG transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector::topology::builder: Synchronous transform finished normally.
+vector-1  | 2026-01-26T20:33:02.701974Z DEBUG sink{component_kind="sink" component_id=print component_type=console}: vector::topology::builder: Sink finished normally.
+vector-1  | {
+vector-1  |   "appname": "KarimMove",
+vector-1  |   "facility": "ntp",
+vector-1  |   "hostname": "up.sony",
+vector-1  |   "message": "Pretty pretty pretty good",
+vector-1  |   "msgid": "ID866",
+vector-1  |   "procid": 9788,
+vector-1  |   "severity": "warning",
+vector-1  |   "timestamp": "2026-01-26T20:33:02.701Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:33:02.702737Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: rdkafka::client: Create new librdkafka client 0xffff7f747000
+vector-1  | 2026-01-26T20:33:02.702778Z DEBUG vector::topology::builder: Building new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:33:02.707971Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Fetching system root certs.
+vector-1  | 2026-01-26T20:33:02.711182Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:02.714754Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:33:02.714766Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:33:02.714769Z DEBUG vector::topology::running: Configuring outputs for source. component_id=kafka_source
+vector-1  | 2026-01-26T20:33:02.714771Z DEBUG vector::topology::running: Configuring output for component. component_id=kafka_source output_id=None
+vector-1  | 2026-01-26T20:33:02.714773Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=http_sink
+vector-1  | 2026-01-26T20:33:02.714777Z DEBUG vector::topology::running: Adding component input to fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:33:02.714793Z DEBUG vector::topology::running: Spawning new source. component_id=kafka_source
+vector-1  | 2026-01-26T20:33:02.714797Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:33:02.714802Z TRACE vector::topology::running: Spawning new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:33:02.714806Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source pump supervisor starting.
+vector-1  | 2026-01-26T20:33:02.714810Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source pump starting.
+vector-1  | 2026-01-26T20:33:02.714813Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source starting.
+vector-1  | 2026-01-26T20:33:02.714813Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:33:02.714853Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:33:02.714923Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:33:02.714955Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: log: Internal log [Create new librdkafka client 0xffff7f747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:09.701002Z TRACE vector: Internal log [Beep.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:33:09.701149Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:33:10.704141Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:11.029844Z DEBUG vector::sources::kafka: Consuming partition test-topic:0.
+vector-1  | 2026-01-26T20:33:11.182252Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Bytes received. byte_size=75 protocol=tcp topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:33:11.182609Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Events received. count=1 byte_size=70 topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:33:11.182909Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:33:11.182937Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=176 output=_default
+vector-1  | 2026-01-26T20:33:11.183015Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "http_sink" })
+vector-1  | 2026-01-26T20:33:11.183068Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:11.183093Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:33:11.183152Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Events received. count=1 byte_size=176
+vector-1  | 2026-01-26T20:33:12.200954Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Submitting service request. in_flight_requests=0 request_id=1
+vector-1  | 2026-01-26T20:33:12.202250Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Sending HTTP request. uri=http://mock-sink:8080/events method=POST version=HTTP/1.1 headers={"content-type": "application/json", "authorization": Sensitive, "accept-encoding": "zstd,gzip,deflate,br", "user-agent": "Vector/0.52.0 (aarch64-unknown-linux-gnu ca5bf26 2025-12-16 14:56:07.290167996)"} body=[176 bytes]
+vector-1  | 2026-01-26T20:33:12.202887Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout waiting for idle connection: ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:33:12.203358Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))
+vector-1  | 2026-01-26T20:33:12.204736Z DEBUG hyper::client::connect::dns: resolving host="mock-sink"
+vector-1  | 2026-01-26T20:33:12.205561Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connecting to 172.21.0.2:8080
+vector-1  | 2026-01-26T20:33:12.206127Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: mio::poll: registering event source with poller: token=Token(281472827400832), interests=READABLE | WRITABLE
+vector-1  | 2026-01-26T20:33:12.206290Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connected to 172.21.0.2:8080
+vector-1  | 2026-01-26T20:33:12.206377Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::conn: client handshake Http1
+vector-1  | 2026-01-26T20:33:12.206470Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::client: handshake complete, spawning background dispatcher task
+vector-1  | 2026-01-26T20:33:12.206963Z TRACE hyper::proto::h1::conn: flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }
+vector-1  | 2026-01-26T20:33:12.213516Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:33:12.214896Z TRACE encode_headers: hyper::proto::h1::role: Client::encode method=POST, body=Some(Known(176))
+vector-1  | 2026-01-26T20:33:12.214982Z TRACE hyper::proto::h1::io: buffer.flatten self.len=269 buf.len=176
+vector-1  | 2026-01-26T20:33:12.215094Z DEBUG hyper::proto::h1::io: flushed 445 bytes
+vector-1  | 2026-01-26T20:33:12.215106Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:12.219387Z TRACE hyper::proto::h1::conn: Conn::read_head
+vector-1  | 2026-01-26T20:33:12.219419Z TRACE hyper::proto::h1::io: received 135 bytes
+vector-1  | 2026-01-26T20:33:12.219438Z TRACE parse_headers: hyper::proto::h1::role: Response.parse bytes=135
+vector-1  | 2026-01-26T20:33:12.219899Z TRACE parse_headers: hyper::proto::h1::role: Response.parse Complete(135)
+vector-1  | 2026-01-26T20:33:12.219923Z TRACE parse_headers: hyper::proto::h1::role: neither Transfer-Encoding nor Content-Length
+vector-1  | 2026-01-26T20:33:12.219935Z DEBUG hyper::proto::h1::io: parsed 3 headers
+vector-1  | 2026-01-26T20:33:12.219981Z DEBUG hyper::proto::h1::conn: incoming body is close-delimited
+vector-1  | 2026-01-26T20:33:12.220005Z TRACE hyper::proto::h1::conn: remote disabling keep-alive
+vector-1  | 2026-01-26T20:33:12.220912Z TRACE hyper::proto::h1::decode: decode; state=Eof(false)
+vector-1  | 2026-01-26T20:33:12.221441Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: HTTP response. status=401 Unauthorized version=HTTP/1.0 headers={"server": "BaseHTTP/0.6 Python/3.11.14", "date": "Mon, 26 Jan 2026 20:33:12 GMT", "content-type": "application/json"} body=[unknown]
+vector-1  | 2026-01-26T20:33:12.221574Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:12.221595Z TRACE hyper::proto::h1::io: Internal log [received 135 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:12.222027Z DEBUG hyper::proto::h1::conn: incoming body completed
+vector-1  | 2026-01-26T20:33:12.222111Z TRACE hyper::proto::h1::conn: try_keep_alive({role=client}): could keep-alive, but status = Disabled
+vector-1  | 2026-01-26T20:33:12.222128Z TRACE hyper::proto::h1::conn: State::close()
+vector-1  | 2026-01-26T20:33:12.226749Z TRACE hyper::proto::h1::conn: shut down IO complete
+vector-1  | 2026-01-26T20:33:12.226778Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 7 times.
+vector-1  | 2026-01-26T20:33:12.226781Z TRACE mio::poll: deregistering event source from poller
+vector-1  | 2026-01-26T20:33:12.227182Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector::sinks::util::retries: Not retriable; dropping the request. reason="Http status: 401 Unauthorized"
+vector-1  | 2026-01-26T20:33:12.227227Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_stream::driver: Service call succeeded. request_id=1
+vector-1  | 2026-01-26T20:33:12.227260Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::service: Service call failed. No retries or retries exhausted. error=None request_id=1 error_type="request_failed" stage="sending"
+vector-1  | 2026-01-26T20:33:12.227286Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+vector-1  | 2026-01-26T20:33:12.726117Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] has been suppressed 29 times.
+vector-1  | 2026-01-26T20:33:12.726140Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff74250280
+vector-1  | 2026-01-26T20:33:12.726145Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:15.460597Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:15.461104Z DEBUG vector::config::watcher: Internal log [Ignoring event.] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:33:15.461126Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:15.461134Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:16.572893Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:33:16.573368Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:33:16.573399Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:33:16.574253Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:16.574861Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:33:16.576464Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:33:16.577184Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:33:16.577223Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:33:16.577279Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:33:16.577300Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:33:17.278387Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:17.278440Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:17.278470Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:17.278504Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:17.278516Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.280852Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Internal log [Submitting service request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.281012Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: vector::internal_events::http_client: Internal log [Sending HTTP request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.281047Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::pool: Internal log [checkout waiting for idle connection: ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.281097Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::connect::http: Internal log [Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.281203Z DEBUG hyper::client::connect::dns: Internal log [resolving host="mock-sink"] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282094Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::connect::http: Internal log [connecting to 172.21.0.2:8080] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282359Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: log: Internal log [registering event source with poller: token=Token(281472827400832), interests=READABLE | WRITABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282446Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::connect::http: Internal log [connected to 172.21.0.2:8080] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282492Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::conn: Internal log [client handshake Http1] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282561Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::client: Internal log [handshake complete, spawning background dispatcher task] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282632Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282698Z TRACE encode_headers: hyper::proto::h1::role: Internal log [Client::encode method=POST, body=Some(Known(176))] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282743Z TRACE hyper::proto::h1::io: Internal log [buffer.flatten] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.282853Z DEBUG hyper::proto::h1::io: Internal log [flushed 445 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.292986Z TRACE hyper::proto::h1::conn: Internal log [Conn::read_head] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293070Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293085Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse Complete(135)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293095Z TRACE parse_headers: hyper::proto::h1::role: Internal log [neither Transfer-Encoding nor Content-Length] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293102Z DEBUG hyper::proto::h1::io: Internal log [parsed 3 headers] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293105Z DEBUG hyper::proto::h1::conn: Internal log [incoming body is close-delimited] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.293108Z TRACE hyper::proto::h1::conn: Internal log [remote disabling keep-alive] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294012Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}:http: vector::internal_events::http_client: Internal log [HTTP response.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294100Z DEBUG hyper::proto::h1::conn: Internal log [incoming body completed] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294105Z TRACE hyper::proto::h1::conn: Internal log [try_keep_alive({role=client}): could keep-alive, but status = Disabled] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294108Z TRACE hyper::proto::h1::conn: Internal log [State::close()] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294200Z TRACE hyper::proto::h1::conn: Internal log [shut down IO complete] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294242Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector::sinks::util::retries: Internal log [Not retriable; dropping the request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294253Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector_stream::driver: Internal log [Service call succeeded.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294256Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector_common::internal_event::service: Internal log [Service call failed. No retries or retries exhausted.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:18.294262Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=2}: vector_common::internal_event::component_events_dropped: Internal log [Events dropped] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:20.698446Z TRACE vector: Internal log [Beep.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:20.698508Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:33:21.699499Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:22.750176Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] has been suppressed 23 times.
+vector-1  | 2026-01-26T20:33:22.750199Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff74250780
+vector-1  | 2026-01-26T20:33:22.750203Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:26.155053Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:33:26.155089Z TRACE notify::inotify: inotify event: Event { wd: WatchDescriptor { id: 1, fd: (Weak) }, mask: EventMask(OPEN), cookie: 0, name: None }
+vector-1  | 2026-01-26T20:33:26.155138Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:26.155216Z DEBUG vector::config::watcher: Internal log [Ignoring event.] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:33:26.155226Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:26.155236Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:33:27.241414Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:33:27.241661Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:33:27.241689Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:33:27.242089Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:27.242275Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:33:27.244126Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:33:27.244460Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:33:27.244504Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:33:27.244573Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:33:27.244605Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:33:27.991748Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Bytes received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:27.991774Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Bytes received. byte_size=75 protocol=tcp topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:33:27.991878Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Events received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:27.991881Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Events received. count=1 byte_size=70 topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:33:27.991917Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 3 times.
+vector-1  | 2026-01-26T20:33:27.991919Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:33:27.991922Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:27.991922Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=176 output=_default
+vector-1  | 2026-01-26T20:33:27.991973Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:27.991997Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:27.991999Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:33:27.992036Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:27.992038Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Events received. count=1 byte_size=176
+vector-1  | 2026-01-26T20:33:28.999744Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Internal log [Submitting service request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:28.999791Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Submitting service request. in_flight_requests=0 request_id=3
+vector-1  | 2026-01-26T20:33:29.000180Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: vector::internal_events::http_client: Internal log [Sending HTTP request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.000198Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: vector::internal_events::http_client: Sending HTTP request. uri=http://mock-sink:8080/events method=POST version=HTTP/1.1 headers={"content-type": "application/json", "authorization": Sensitive, "accept-encoding": "zstd,gzip,deflate,br", "user-agent": "Vector/0.52.0 (aarch64-unknown-linux-gnu ca5bf26 2025-12-16 14:56:07.290167996)"} body=[176 bytes]
+vector-1  | 2026-01-26T20:33:29.000290Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: Internal log [checkout waiting for idle connection: ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.000304Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: checkout waiting for idle connection: ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:33:29.000373Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: Internal log [Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.000383Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))
+vector-1  | 2026-01-26T20:33:29.000904Z DEBUG hyper::client::connect::dns: Internal log [resolving host="mock-sink"] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.000946Z DEBUG hyper::client::connect::dns: resolving host="mock-sink"
+vector-1  | 2026-01-26T20:33:29.002230Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: Internal log [connecting to 172.21.0.2:8080] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002256Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: connecting to 172.21.0.2:8080
+vector-1  | 2026-01-26T20:33:29.002525Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: log: Internal log [registering event source with poller: token=Token(281472827400832), interests=READABLE | WRITABLE] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002537Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: mio::poll: registering event source with poller: token=Token(281472815036544), interests=READABLE | WRITABLE
+vector-1  | 2026-01-26T20:33:29.002620Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: Internal log [connected to 172.21.0.2:8080] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002637Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::connect::http: connected to 172.21.0.2:8080
+vector-1  | 2026-01-26T20:33:29.002672Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::conn: Internal log [client handshake Http1] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002677Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::conn: client handshake Http1
+vector-1  | 2026-01-26T20:33:29.002711Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::client: Internal log [handshake complete, spawning background dispatcher task] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002725Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::client: handshake complete, spawning background dispatcher task
+vector-1  | 2026-01-26T20:33:29.002820Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] has been suppressed 8 times.
+vector-1  | 2026-01-26T20:33:29.002826Z TRACE hyper::proto::h1::conn: flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }
+vector-1  | 2026-01-26T20:33:29.002866Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002884Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:33:29.002973Z TRACE encode_headers: hyper::proto::h1::role: Internal log [Client::encode method=POST, body=Some(Known(176))] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.002977Z TRACE encode_headers: hyper::proto::h1::role: Client::encode method=POST, body=Some(Known(176))
+vector-1  | 2026-01-26T20:33:29.003015Z TRACE hyper::proto::h1::io: Internal log [buffer.flatten] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.003020Z TRACE hyper::proto::h1::io: buffer.flatten self.len=269 buf.len=176
+vector-1  | 2026-01-26T20:33:29.003089Z DEBUG hyper::proto::h1::io: Internal log [flushed 445 bytes] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.003102Z DEBUG hyper::proto::h1::io: flushed 445 bytes
+vector-1  | 2026-01-26T20:33:29.003112Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:29.005440Z TRACE hyper::proto::h1::conn: Internal log [Conn::read_head] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005464Z TRACE hyper::proto::h1::conn: Conn::read_head
+vector-1  | 2026-01-26T20:33:29.005492Z TRACE hyper::proto::h1::io: Internal log [received 135 bytes] has been suppressed 4 times.
+vector-1  | 2026-01-26T20:33:29.005494Z TRACE hyper::proto::h1::io: received 135 bytes
+vector-1  | 2026-01-26T20:33:29.005509Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005513Z TRACE parse_headers: hyper::proto::h1::role: Response.parse bytes=135
+vector-1  | 2026-01-26T20:33:29.005531Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse Complete(135)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005539Z TRACE parse_headers: hyper::proto::h1::role: Response.parse Complete(135)
+vector-1  | 2026-01-26T20:33:29.005549Z TRACE parse_headers: hyper::proto::h1::role: Internal log [neither Transfer-Encoding nor Content-Length] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005550Z TRACE parse_headers: hyper::proto::h1::role: neither Transfer-Encoding nor Content-Length
+vector-1  | 2026-01-26T20:33:29.005578Z DEBUG hyper::proto::h1::io: Internal log [parsed 3 headers] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005588Z DEBUG hyper::proto::h1::io: parsed 3 headers
+vector-1  | 2026-01-26T20:33:29.005596Z DEBUG hyper::proto::h1::conn: Internal log [incoming body is close-delimited] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005598Z DEBUG hyper::proto::h1::conn: incoming body is close-delimited
+vector-1  | 2026-01-26T20:33:29.005603Z TRACE hyper::proto::h1::conn: Internal log [remote disabling keep-alive] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005608Z TRACE hyper::proto::h1::conn: remote disabling keep-alive
+vector-1  | 2026-01-26T20:33:29.005644Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] has been suppressed 4 times.
+vector-1  | 2026-01-26T20:33:29.005649Z TRACE hyper::proto::h1::decode: decode; state=Eof(false)
+vector-1  | 2026-01-26T20:33:29.005705Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: vector::internal_events::http_client: Internal log [HTTP response.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005735Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}:http: vector::internal_events::http_client: HTTP response. status=401 Unauthorized version=HTTP/1.0 headers={"server": "BaseHTTP/0.6 Python/3.11.14", "date": "Mon, 26 Jan 2026 20:33:29 GMT", "content-type": "application/json"} body=[unknown]
+vector-1  | 2026-01-26T20:33:29.005853Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:29.005876Z TRACE hyper::proto::h1::io: Internal log [received 135 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:29.005929Z DEBUG hyper::proto::h1::conn: Internal log [incoming body completed] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005935Z DEBUG hyper::proto::h1::conn: incoming body completed
+vector-1  | 2026-01-26T20:33:29.005951Z TRACE hyper::proto::h1::conn: Internal log [try_keep_alive({role=client}): could keep-alive, but status = Disabled] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005959Z TRACE hyper::proto::h1::conn: try_keep_alive({role=client}): could keep-alive, but status = Disabled
+vector-1  | 2026-01-26T20:33:29.005964Z TRACE hyper::proto::h1::conn: Internal log [State::close()] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.005967Z TRACE hyper::proto::h1::conn: State::close()
+vector-1  | 2026-01-26T20:33:29.006056Z TRACE hyper::proto::h1::conn: Internal log [shut down IO complete] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006061Z TRACE hyper::proto::h1::conn: shut down IO complete
+vector-1  | 2026-01-26T20:33:29.006181Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector::sinks::util::retries: Internal log [Not retriable; dropping the request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006192Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector::sinks::util::retries: Not retriable; dropping the request. reason="Http status: 401 Unauthorized"
+vector-1  | 2026-01-26T20:33:29.006211Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_stream::driver: Internal log [Service call succeeded.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006214Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_stream::driver: Service call succeeded. request_id=3
+vector-1  | 2026-01-26T20:33:29.006229Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::service: Internal log [Service call failed. No retries or retries exhausted.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006233Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::service: Service call failed. No retries or retries exhausted. error=None request_id=3 error_type="request_failed" stage="sending"
+vector-1  | 2026-01-26T20:33:29.006248Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::component_events_dropped: Internal log [Events dropped] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:33:29.006253Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=3}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+vector-1  | 2026-01-26T20:33:30.700631Z TRACE vector: Internal log [Beep.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:33:30.700667Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:33:31.698168Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:32.777084Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] has been suppressed 23 times.
+vector-1  | 2026-01-26T20:33:32.777164Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff74250c80
+vector-1  | 2026-01-26T20:33:32.777181Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff7f747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:33:41.697897Z TRACE vector: Internal log [Beep.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:33:41.697944Z TRACE vector: Beep.
+
+==========================================
+Full Mock Sink Logs
+==========================================
+
+time="2026-01-26T21:33:41+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+mock-sink-1  | Mock sink server starting on port 8080...
+mock-sink-1  |   - Valid token: 'Bearer valid-token' -> 200 OK
+mock-sink-1  |   - Invalid token: 'Bearer invalid-token' -> 401 Unauthorized
+mock-sink-1  |   - Health check: GET /health
+mock-sink-1  |   - Stats: GET /stats
+mock-sink-1  | 
+mock-sink-1  | [2026-01-26T20:33:12.218453] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  |   Rejected: {"headers": {}, "id": 1, "message": "Test message 1", "message_key": null, "offset": 0, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:33:06.786Z", "topic": "test-topic"}
+mock-sink-1  | [2026-01-26T20:33:18.283285] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  |   Rejected: {"headers": {}, "id": 2, "message": "Test message 2", "message_key": null, "offset": 1, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:33:17.262Z", "topic": "test-topic"}
+mock-sink-1  | [2026-01-26T20:33:29.005087] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  |   Rejected: {"headers": {}, "id": 3, "message": "Test message 3", "message_key": null, "offset": 2, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:33:27.975Z", "topic": "test-topic"}
+
+==========================================
+Cleanup
+==========================================
+
+Completed at: Mon Jan 26 21:33:41 CET 2026
+
+Debug output saved to: reproduction_debug_output.txt
+
+To view full logs: docker-compose logs
+To stop services: docker-compose down -v
+
+==========================================
+Debug Reproduction Run
+Started at: Mon Jan 26 21:34:28 CET 2026
+==========================================
+
+Step 1: Starting Docker Compose services...
+time="2026-01-26T21:34:39+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network reproduction_default  Creating
+ Network reproduction_default  Created
+ Volume "reproduction_vector-config"  Creating
+ Volume "reproduction_vector-config"  Created
+ Container reproduction-mock-sink-1  Creating
+ Container reproduction-zookeeper-1  Creating
+ Container reproduction-zookeeper-1  Created
+ Container reproduction-kafka-1  Creating
+ Container reproduction-mock-sink-1  Created
+ Container reproduction-kafka-1  Created
+ Container reproduction-vector-1  Creating
+ Container reproduction-vector-1  Created
+ Container reproduction-zookeeper-1  Starting
+ Container reproduction-mock-sink-1  Starting
+ Container reproduction-mock-sink-1  Started
+ Container reproduction-zookeeper-1  Started
+ Container reproduction-kafka-1  Starting
+ Container reproduction-kafka-1  Started
+ Container reproduction-vector-1  Starting
+ Container reproduction-vector-1  Started
+
+Step 2: Waiting for services to be ready...
+  - Waiting for Kafka... [0;32m✓[0m
+  - Waiting for mock sink... [0;32m✓[0m
+  - Waiting for Vector... [0;32m✓[0m
+
+Step 3: Creating Kafka topic...
+time="2026-01-26T21:34:52+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Created topic test-topic.
+
+Step 4: Initialize Vector with good token config...
+time="2026-01-26T21:34:53+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Waiting for Vector to load config...
+[0;32m✓[0m Vector ready (started with good token config)
+
+==========================================
+Starting Reproduction Test
+==========================================
+
+[0;32mPhase 1: Sending 1 message with VALID token[0m
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:34:58+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 1-1)
+
+[0;31mPhase 2: Sending 1 message with INVALID token[0m
+[1;33mSwitching to INVALID token config...[0m
+time="2026-01-26T21:35:07+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:35:07+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+==========================================
+Debug Reproduction Run
+Started at: Mon Jan 26 21:35:32 CET 2026
+==========================================
+
+Step 1: Starting Docker Compose services...
+time="2026-01-26T21:35:43+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network reproduction_default  Creating
+ Network reproduction_default  Created
+ Volume "reproduction_vector-config"  Creating
+ Volume "reproduction_vector-config"  Created
+ Container reproduction-zookeeper-1  Creating
+ Container reproduction-mock-sink-1  Creating
+ Container reproduction-zookeeper-1  Created
+ Container reproduction-kafka-1  Creating
+ Container reproduction-mock-sink-1  Created
+ Container reproduction-kafka-1  Created
+ Container reproduction-vector-1  Creating
+ Container reproduction-vector-1  Created
+ Container reproduction-zookeeper-1  Starting
+ Container reproduction-mock-sink-1  Starting
+ Container reproduction-zookeeper-1  Started
+ Container reproduction-kafka-1  Starting
+ Container reproduction-mock-sink-1  Started
+ Container reproduction-kafka-1  Started
+ Container reproduction-vector-1  Starting
+ Container reproduction-vector-1  Started
+
+Step 2: Waiting for services to be ready...
+  - Waiting for Kafka... [0;32m✓[0m
+  - Waiting for mock sink... [0;32m✓[0m
+  - Waiting for Vector... [0;32m✓[0m
+
+Step 3: Creating Kafka topic...
+time="2026-01-26T21:35:58+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Created topic test-topic.
+
+Step 4: Initialize Vector with good token config...
+time="2026-01-26T21:35:59+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Waiting for Vector to load config...
+[0;32m✓[0m Vector ready (started with good token config)
+
+==========================================
+Starting Reproduction Test
+==========================================
+
+[0;32mPhase 1: Sending 1 message with VALID token[0m
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:36:04+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 1-1)
+
+[0;31mPhase 2: Sending 1 message with INVALID token[0m
+[1;33mSwitching to INVALID token config...[0m
+time="2026-01-26T21:36:14+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:36:14+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+      token: "invalid-token"
+  Waiting for Vector to reload...
+  [0;32m✓[0m Vector reloaded
+[1;33mSending 1 messages (invalid token - THIS WILL BE LOST)...[0m
+time="2026-01-26T21:36:15+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 2-2)
+
+[0;32mPhase 3: Sending 1 message with VALID token again[0m
+[1;33mSwitching to VALID token config...[0m
+time="2026-01-26T21:36:24+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Verifying config change...
+time="2026-01-26T21:36:24+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+      token: "valid-token"
+  Waiting for Vector to reload...
+  [0;32m✓[0m Vector reloaded
+[1;33mSending 1 messages (valid token)...[0m
+time="2026-01-26T21:36:26+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+  Sent 1 messages (IDs 3-3)
+
+==========================================
+Test Results
+==========================================
+
+Querying mock sink for received events...
+
+Expected: 3 messages sent (IDs 1, 2, 3)
+Actual:   2 messages received
+
+[0;31m✗ BUG CONFIRMED: Only 2 messages received![0m
+[0;31m  Message 2 (sent with invalid token) was PERMANENTLY LOST[0m
+
+Received message IDs:
+1 3 
+
+[1;33mThis demonstrates the data loss bug in Vector's Kafka source.[0m
+[1;33mEven though acknowledgements are enabled, rejected events are lost.[0m
+
+==========================================
+Logs
+==========================================
+
+Mock sink logs (showing rejections):
+time="2026-01-26T21:36:40+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+mock-sink-1  | [2026-01-26T20:36:09.426309] ✅ SUCCESS: Received 1 events with valid token
+mock-sink-1  | [2026-01-26T20:36:17.055295] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  | [2026-01-26T20:36:27.523444] ✅ SUCCESS: Received 1 events with valid token
+
+Vector logs (showing dropped events):
+time="2026-01-26T21:36:40+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+vector-1  | 2026-01-26T20:36:09.419079Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:36:17.054327Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.057200Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector::sinks::util::retries: Not retriable; dropping the request. reason="Http status: 401 Unauthorized"
+vector-1  | 2026-01-26T20:36:17.057352Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+vector-1  | 2026-01-26T20:36:27.522075Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.522080Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+
+==========================================
+Full Vector Debug Logs
+==========================================
+
+Capturing full Vector logs with debug output...
+
+time="2026-01-26T21:36:40+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+vector-1  | 2026-01-26T20:35:48.289443Z DEBUG vector::app: Internal log rate limit configured. internal_log_rate_secs=10
+vector-1  | 2026-01-26T20:35:48.289602Z  INFO vector::app: Log level is enabled. level="trace"
+vector-1  | 2026-01-26T20:35:48.289686Z DEBUG vector::app: Building runtime. worker_threads=7
+vector-1  | 2026-01-26T20:35:48.289819Z TRACE mio::poll: registering event source with poller: token=Token(1), interests=READABLE
+vector-1  | 2026-01-26T20:35:48.290292Z  INFO vector::app: Loading configs. paths=["/etc/vector/vector.yaml"]
+vector-1  | 2026-01-26T20:35:48.331638Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:35:48.360454Z  INFO vector::app: Starting watcher. paths=["/etc/vector/vector.yaml"]
+vector-1  | 2026-01-26T20:35:48.360501Z  INFO vector::app: Components to watch. paths=[ComponentConfig { config_paths: [], component_key: ComponentKey { id: "parse_logs" }, component_type: Transform }, ComponentConfig { config_paths: [], component_key: ComponentKey { id: "print" }, component_type: Sink }]
+vector-1  | 2026-01-26T20:35:48.360533Z  INFO vector::config::watcher: Creating configuration file watcher.
+vector-1  | 2026-01-26T20:35:48.360566Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:48.400994Z  INFO vector::config::watcher: Watching configuration files.
+vector-1  | 2026-01-26T20:35:48.401233Z DEBUG vector::topology::builder: Building new source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:35:48.402309Z DEBUG vector::topology::builder: Building new transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:35:48.403639Z DEBUG vector::topology::builder: Building new sink. component_id=print
+vector-1  | 2026-01-26T20:35:48.439515Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:35:48.440127Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:35:48.440557Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:35:48.440639Z DEBUG vector::topology::running: Configuring outputs for source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:35:48.441096Z DEBUG vector::topology::running: Configuring output for component. component_id=dummy_logs output_id=None
+vector-1  | 2026-01-26T20:35:48.441252Z DEBUG vector::topology::running: Configuring outputs for transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:35:48.441312Z DEBUG vector::topology::running: Configuring output for component. component_id=parse_logs output_id=None
+vector-1  | 2026-01-26T20:35:48.441784Z DEBUG vector::topology::running: Connecting inputs for transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:35:48.441797Z DEBUG vector::topology::running: Adding component input to fanout. component_id=parse_logs fanout_id=dummy_logs
+vector-1  | 2026-01-26T20:35:48.441801Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=print
+vector-1  | 2026-01-26T20:35:48.441804Z DEBUG vector::topology::running: Adding component input to fanout. component_id=print fanout_id=parse_logs
+vector-1  | 2026-01-26T20:35:48.441826Z DEBUG vector::topology::running: Spawning new source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:35:48.449415Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump supervisor starting.
+vector-1  | 2026-01-26T20:35:48.452145Z DEBUG vector::topology::running: Spawning new transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:35:48.452174Z TRACE vector::topology::running: Spawning new sink. component_id=print
+vector-1  | 2026-01-26T20:35:48.452252Z  INFO vector: Vector has started. debug="false" version="0.52.0" arch="aarch64" revision="ca5bf26 2025-12-16 14:56:07.290167996"
+vector-1  | 2026-01-26T20:35:48.452268Z  INFO vector::app: API is disabled, enable by setting `api.enabled` to `true` and use commands like `vector top`.
+vector-1  | 2026-01-26T20:35:48.453274Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump starting.
+vector-1  | 2026-01-26T20:35:48.453321Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source starting.
+vector-1  | 2026-01-26T20:35:48.453390Z DEBUG transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector::topology::builder: Synchronous transform starting.
+vector-1  | 2026-01-26T20:35:48.453856Z DEBUG sink{component_kind="sink" component_id=print component_type=console}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:35:48.458836Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Bytes received. byte_size=0 protocol=none
+vector-1  | 2026-01-26T20:35:48.459800Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Received one event.
+vector-1  | 2026-01-26T20:35:48.468834Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:35:48.470200Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Events received. count=1 byte_size=165
+vector-1  | 2026-01-26T20:35:48.470859Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:35:48.470911Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=276 output=_default
+vector-1  | 2026-01-26T20:35:48.471852Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "parse_logs" })
+vector-1  | 2026-01-26T20:35:48.471944Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:48.471982Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:35:48.472006Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Events received. count=1 byte_size=276
+vector-1  | 2026-01-26T20:35:48.472246Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "print" })
+vector-1  | 2026-01-26T20:35:48.478224Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:35:48.478314Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:35:48.478349Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=269 output=_default
+vector-1  | 2026-01-26T20:35:48.478430Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Events received. count=1 byte_size=269
+vector-1  | 2026-01-26T20:35:48.482952Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=267
+vector-1  | 2026-01-26T20:35:48.483018Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Bytes sent. byte_size=305 protocol=console
+vector-1  | {
+vector-1  |   "appname": "shaneIxD",
+vector-1  |   "facility": "daemon",
+vector-1  |   "hostname": "up.drive",
+vector-1  |   "message": "Great Scott! We're never gonna reach 88 mph with the flux capacitor in its current state!",
+vector-1  |   "msgid": "ID753",
+vector-1  |   "procid": 3788,
+vector-1  |   "severity": "notice",
+vector-1  |   "timestamp": "2026-01-26T20:35:48.459Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | 2026-01-26T20:35:49.457035Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457048Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457119Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457212Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457246Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457275Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457302Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457355Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457371Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457776Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457806Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:49.457848Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | {
+vector-1  |   "appname": "b0rnc0nfused",
+vector-1  |   "facility": "local1",
+vector-1  |   "hostname": "names.menu",
+vector-1  |   "message": "Great Scott! We're never gonna reach 88 mph with the flux capacitor in its current state!",
+vector-1  |   "msgid": "ID767",
+vector-1  |   "procid": 9360,
+vector-1  |   "severity": "info",
+vector-1  |   "timestamp": "2026-01-26T20:35:49.457Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | 2026-01-26T20:35:49.457880Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] is being suppressed to avoid flooding.
+vector-1  | {
+vector-1  |   "appname": "benefritz",
+vector-1  |   "facility": "syslog",
+vector-1  |   "hostname": "names.organic",
+vector-1  |   "message": "We're gonna need a bigger boat",
+vector-1  |   "msgid": "ID384",
+vector-1  |   "procid": 5939,
+vector-1  |   "severity": "crit",
+vector-1  |   "timestamp": "2026-01-26T20:35:50.454Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "AmbientTech",
+vector-1  |   "facility": "mail",
+vector-1  |   "hostname": "up.guitars",
+vector-1  |   "message": "#hugops to everyone who has to deal with this",
+vector-1  |   "msgid": "ID389",
+vector-1  |   "procid": 7703,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:35:51.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "BronzeGamer",
+vector-1  |   "facility": "mail",
+vector-1  |   "hostname": "we.tax",
+vector-1  |   "message": "Great Scott! We're never gonna reach 88 mph with the flux capacitor in its current state!",
+vector-1  |   "msgid": "ID398",
+vector-1  |   "procid": 7306,
+vector-1  |   "severity": "emerg",
+vector-1  |   "timestamp": "2026-01-26T20:35:52.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "AnthraX",
+vector-1  |   "facility": "local2",
+vector-1  |   "hostname": "for.quebec",
+vector-1  |   "message": "A bug was encountered but not in Vector, which doesn't have bugs",
+vector-1  |   "msgid": "ID394",
+vector-1  |   "procid": 271,
+vector-1  |   "severity": "alert",
+vector-1  |   "timestamp": "2026-01-26T20:35:53.454Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "Scarface",
+vector-1  |   "facility": "alert",
+vector-1  |   "hostname": "names.citadel",
+vector-1  |   "message": "A bug was encountered but not in Vector, which doesn't have bugs",
+vector-1  |   "msgid": "ID645",
+vector-1  |   "procid": 3798,
+vector-1  |   "severity": "info",
+vector-1  |   "timestamp": "2026-01-26T20:35:54.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "BronzeGamer",
+vector-1  |   "facility": "authpriv",
+vector-1  |   "hostname": "make.xn--ngbc5azd",
+vector-1  |   "message": "There's a breach in the warp core, captain",
+vector-1  |   "msgid": "ID208",
+vector-1  |   "procid": 9927,
+vector-1  |   "severity": "warning",
+vector-1  |   "timestamp": "2026-01-26T20:35:55.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "devankoshal",
+vector-1  |   "facility": "local0",
+vector-1  |   "hostname": "names.yandex",
+vector-1  |   "message": "Great Scott! We're never gonna reach 88 mph with the flux capacitor in its current state!",
+vector-1  |   "msgid": "ID867",
+vector-1  |   "procid": 3550,
+vector-1  |   "severity": "warning",
+vector-1  |   "timestamp": "2026-01-26T20:35:56.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "Scarface",
+vector-1  |   "facility": "ftp",
+vector-1  |   "hostname": "some.dev",
+vector-1  |   "message": "Take a breath, let it go, walk away",
+vector-1  |   "msgid": "ID668",
+vector-1  |   "procid": 5846,
+vector-1  |   "severity": "info",
+vector-1  |   "timestamp": "2026-01-26T20:35:57.455Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | {
+vector-1  |   "appname": "meln1ks",
+vector-1  |   "facility": "local3",
+vector-1  |   "hostname": "names.llp",
+vector-1  |   "message": "Take a breath, let it go, walk away",
+vector-1  |   "msgid": "ID950",
+vector-1  |   "procid": 7600,
+vector-1  |   "severity": "notice",
+vector-1  |   "timestamp": "2026-01-26T20:35:58.457Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | 2026-01-26T20:35:59.455585Z TRACE vector: Internal log [Beep.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455647Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:35:59.455612Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455660Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Bytes received. byte_size=0 protocol=none
+vector-1  | 2026-01-26T20:35:59.455670Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455671Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Received one event.
+vector-1  | 2026-01-26T20:35:59.455784Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455799Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Events received. count=1 byte_size=103
+vector-1  | 2026-01-26T20:35:59.455822Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 21 times.
+vector-1  | 2026-01-26T20:35:59.455824Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:35:59.455827Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455828Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=214 output=_default
+vector-1  | 2026-01-26T20:35:59.455849Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:59.455871Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455875Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:35:59.455889Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455890Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Events received. count=1 byte_size=214
+vector-1  | 2026-01-26T20:35:59.455971Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.455999Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:35:59.456010Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.456011Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:35:59.456014Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.456015Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=208 output=_default
+vector-1  | 2026-01-26T20:35:59.456027Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.456036Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Events received. count=1 byte_size=208
+vector-1  | 2026-01-26T20:35:59.456061Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.456069Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=206
+vector-1  | 2026-01-26T20:35:59.456072Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:35:59.456072Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Bytes sent. byte_size=244 protocol=console
+vector-1  | {
+vector-1  |   "appname": "BronzeGamer",
+vector-1  |   "facility": "authpriv",
+vector-1  |   "hostname": "up.golf",
+vector-1  |   "message": "Pretty pretty pretty good",
+vector-1  |   "msgid": "ID764",
+vector-1  |   "procid": 8013,
+vector-1  |   "severity": "debug",
+vector-1  |   "timestamp": "2026-01-26T20:35:59.455Z",
+vector-1  |   "version": 1
+vector-1  | }
+vector-1  | 2026-01-26T20:35:59.865553Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:35:59.865579Z TRACE notify::inotify: inotify event: Event { wd: WatchDescriptor { id: 1, fd: (Weak) }, mask: EventMask(OPEN), cookie: 0, name: None }
+vector-1  | 2026-01-26T20:35:59.865644Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:35:59.865808Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:35:59.865827Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:36:00.455291Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.455432Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::bytes_received: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.455489Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::internal_events::demo_logs: Internal log [Received one event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456003Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456131Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456206Z TRACE source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456256Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456431Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456470Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456480Z TRACE transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456506Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456573Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.456595Z TRACE sink{component_kind="sink" component_id=print component_type=console}: vector_common::internal_event::bytes_sent: Internal log [Bytes sent.] is being suppressed to avoid flooding.
+vector-1  | {
+vector-1  |   "appname": "BryanHorsey",
+vector-1  |   "facility": "local4",
+vector-1  |   "hostname": "random.pf",
+vector-1  |   "message": "There's a breach in the warp core, captain",
+vector-1  |   "msgid": "ID396",
+vector-1  |   "procid": 4759,
+vector-1  |   "severity": "notice",
+vector-1  |   "timestamp": "2026-01-26T20:36:00.455Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:36:00.867268Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:36:00.867551Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:36:00.867581Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:36:00.867969Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:00.868579Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:36:00.870600Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:36:00.870725Z DEBUG vector::topology::running: Removing source. component_id=dummy_logs
+vector-1  | 2026-01-26T20:36:00.871061Z DEBUG vector::topology::running: Waiting for up to 30 seconds for source(s) to finish shutting down.
+vector-1  | 2026-01-26T20:36:01.455163Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source finished normally.
+vector-1  | 2026-01-26T20:36:01.455205Z DEBUG vector::topology::running: Removing transform. component_id=parse_logs
+vector-1  | 2026-01-26T20:36:01.455213Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump finished normally.
+vector-1  | 2026-01-26T20:36:01.455270Z DEBUG source{component_kind="source" component_id=dummy_logs component_type=demo_logs}: vector::topology::builder: Source pump supervisor task finished normally.
+vector-1  | 2026-01-26T20:36:01.455277Z DEBUG vector::topology::running: Removing sink. component_id=print
+vector-1  | 2026-01-26T20:36:01.455297Z DEBUG vector::topology::builder: Building new source. component_id=kafka_source
+vector-1  | 2026-01-26T20:36:01.455359Z DEBUG transform{component_kind="transform" component_id=parse_logs component_type=remap}: vector::topology::builder: Synchronous transform finished normally.
+vector-1  | 2026-01-26T20:36:01.455394Z DEBUG sink{component_kind="sink" component_id=print component_type=console}: vector::topology::builder: Sink finished normally.
+vector-1  | {
+vector-1  |   "appname": "benefritz",
+vector-1  |   "facility": "local5",
+vector-1  |   "hostname": "make.gmail",
+vector-1  |   "message": "There's a breach in the warp core, captain",
+vector-1  |   "msgid": "ID320",
+vector-1  |   "procid": 130,
+vector-1  |   "severity": "emerg",
+vector-1  |   "timestamp": "2026-01-26T20:36:01.454Z",
+vector-1  |   "version": 2
+vector-1  | }
+vector-1  | 2026-01-26T20:36:01.456510Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: rdkafka::client: Create new librdkafka client 0xffff96747000
+vector-1  | 2026-01-26T20:36:01.456574Z DEBUG vector::topology::builder: Building new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:01.463335Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Fetching system root certs.
+vector-1  | 2026-01-26T20:36:01.467002Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:01.470958Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:36:01.471011Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:36:01.471027Z DEBUG vector::topology::running: Configuring outputs for source. component_id=kafka_source
+vector-1  | 2026-01-26T20:36:01.471136Z DEBUG vector::topology::running: Configuring output for component. component_id=kafka_source output_id=None
+vector-1  | 2026-01-26T20:36:01.471159Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:01.471180Z DEBUG vector::topology::running: Adding component input to fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:36:01.471212Z DEBUG vector::topology::running: Spawning new source. component_id=kafka_source
+vector-1  | 2026-01-26T20:36:01.471046Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:36:01.471262Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source pump supervisor starting.
+vector-1  | 2026-01-26T20:36:01.471271Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source pump starting.
+vector-1  | 2026-01-26T20:36:01.471275Z DEBUG source{component_kind="source" component_id=kafka_source component_type=kafka}: vector::topology::builder: Source starting.
+vector-1  | 2026-01-26T20:36:01.471243Z TRACE vector::topology::running: Spawning new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:01.471337Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:36:01.471380Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:36:01.471374Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:36:01.471476Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: log: Internal log [Create new librdkafka client 0xffff96747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:08.270429Z DEBUG vector::sources::kafka: Consuming partition test-topic:0.
+vector-1  | 2026-01-26T20:36:08.399773Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Bytes received. byte_size=75 protocol=tcp topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:36:08.400105Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Events received. count=1 byte_size=70 topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:36:08.400291Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:36:08.400304Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=176 output=_default
+vector-1  | 2026-01-26T20:36:08.400365Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "http_sink" })
+vector-1  | 2026-01-26T20:36:08.400420Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:08.400447Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:36:08.400493Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Events received. count=1 byte_size=176
+vector-1  | 2026-01-26T20:36:09.412412Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Submitting service request. in_flight_requests=0 request_id=1
+vector-1  | 2026-01-26T20:36:09.413817Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Sending HTTP request. uri=http://mock-sink:8080/events method=POST version=HTTP/1.1 headers={"content-type": "application/json", "authorization": Sensitive, "accept-encoding": "zstd,gzip,deflate,br", "user-agent": "Vector/0.52.0 (aarch64-unknown-linux-gnu ca5bf26 2025-12-16 14:56:07.290167996)"} body=[176 bytes]
+vector-1  | 2026-01-26T20:36:09.414150Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout waiting for idle connection: ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:36:09.414533Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))
+vector-1  | 2026-01-26T20:36:09.415173Z DEBUG hyper::client::connect::dns: resolving host="mock-sink"
+vector-1  | 2026-01-26T20:36:09.417248Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connecting to 172.21.0.3:8080
+vector-1  | 2026-01-26T20:36:09.417595Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: mio::poll: registering event source with poller: token=Token(281473167917184), interests=READABLE | WRITABLE
+vector-1  | 2026-01-26T20:36:09.417989Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connected to 172.21.0.3:8080
+vector-1  | 2026-01-26T20:36:09.418155Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::conn: client handshake Http1
+vector-1  | 2026-01-26T20:36:09.418303Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::client: handshake complete, spawning background dispatcher task
+vector-1  | 2026-01-26T20:36:09.418783Z TRACE hyper::proto::h1::conn: flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }
+vector-1  | 2026-01-26T20:36:09.419079Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:36:09.421028Z TRACE encode_headers: hyper::proto::h1::role: Client::encode method=POST, body=Some(Known(176))
+vector-1  | 2026-01-26T20:36:09.421180Z TRACE hyper::proto::h1::io: buffer.flatten self.len=267 buf.len=176
+vector-1  | 2026-01-26T20:36:09.421527Z DEBUG hyper::proto::h1::io: flushed 443 bytes
+vector-1  | 2026-01-26T20:36:09.421546Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:09.427100Z TRACE hyper::proto::h1::conn: Conn::read_head
+vector-1  | 2026-01-26T20:36:09.427179Z TRACE hyper::proto::h1::io: received 125 bytes
+vector-1  | 2026-01-26T20:36:09.427207Z TRACE parse_headers: hyper::proto::h1::role: Response.parse bytes=125
+vector-1  | 2026-01-26T20:36:09.427266Z TRACE parse_headers: hyper::proto::h1::role: Response.parse Complete(125)
+vector-1  | 2026-01-26T20:36:09.427299Z TRACE parse_headers: hyper::proto::h1::role: neither Transfer-Encoding nor Content-Length
+vector-1  | 2026-01-26T20:36:09.427317Z DEBUG hyper::proto::h1::io: parsed 3 headers
+vector-1  | 2026-01-26T20:36:09.427337Z DEBUG hyper::proto::h1::conn: incoming body is close-delimited
+vector-1  | 2026-01-26T20:36:09.427346Z TRACE hyper::proto::h1::conn: remote disabling keep-alive
+vector-1  | 2026-01-26T20:36:09.427465Z TRACE hyper::proto::h1::decode: decode; state=Eof(false)
+vector-1  | 2026-01-26T20:36:09.427741Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: HTTP response. status=200 OK version=HTTP/1.0 headers={"server": "BaseHTTP/0.6 Python/3.11.14", "date": "Mon, 26 Jan 2026 20:36:09 GMT", "content-type": "application/json"} body=[unknown]
+vector-1  | 2026-01-26T20:36:09.427843Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector::internal_events::common: Bytes sent. byte_size=176 protocol=http endpoint=http://mock-sink:8080/events
+vector-1  | 2026-01-26T20:36:09.427968Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:09.428007Z TRACE hyper::proto::h1::io: Internal log [received 125 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:09.428151Z DEBUG hyper::proto::h1::conn: incoming body completed
+vector-1  | 2026-01-26T20:36:09.428193Z TRACE hyper::proto::h1::conn: try_keep_alive({role=client}): could keep-alive, but status = Disabled
+vector-1  | 2026-01-26T20:36:09.428200Z TRACE hyper::proto::h1::conn: State::close()
+vector-1  | 2026-01-26T20:36:09.428387Z TRACE hyper::proto::h1::conn: shut down IO complete
+vector-1  | 2026-01-26T20:36:09.428741Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_stream::driver: Service call succeeded. request_id=1
+vector-1  | 2026-01-26T20:36:09.428794Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=174
+vector-1  | 2026-01-26T20:36:09.456071Z TRACE vector: Internal log [Beep.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:36:09.456113Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:36:10.455904Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:11.473726Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] has been suppressed 31 times.
+vector-1  | 2026-01-26T20:36:11.473768Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff8b680320
+vector-1  | 2026-01-26T20:36:11.473773Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:14.172412Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 8 times.
+vector-1  | 2026-01-26T20:36:14.172428Z TRACE notify::inotify: inotify event: Event { wd: WatchDescriptor { id: 1, fd: (Weak) }, mask: EventMask(OPEN), cookie: 0, name: None }
+vector-1  | 2026-01-26T20:36:14.172483Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:14.172575Z DEBUG vector::config::watcher: Internal log [Ignoring event.] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:36:14.172588Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:36:14.172594Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:36:15.263180Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:36:15.263467Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:36:15.263478Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:36:15.264002Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:15.264601Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:36:15.266278Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:36:15.266994Z DEBUG vector::topology::running: Changing sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:15.267094Z DEBUG vector::topology::running: Pausing component input in fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:36:15.267112Z DEBUG vector::topology::running: Waiting for sink to shutdown. component_id=http_sink
+vector-1  | 2026-01-26T20:36:15.270175Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink finished normally.
+vector-1  | 2026-01-26T20:36:15.270920Z DEBUG vector::topology::builder: Building new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:15.281235Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:15.281280Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Fetching system root certs.
+vector-1  | 2026-01-26T20:36:15.289167Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:15.296255Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:36:15.296293Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:36:15.296310Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:15.296320Z DEBUG vector::topology::running: Replacing component input in fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:36:15.296344Z DEBUG vector::topology::running: Spawning changed sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:15.296347Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:36:15.296374Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:36:15.296389Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:36:15.296402Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:36:16.047937Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Bytes received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:16.047991Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:16.048033Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Internal log [Events sent.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:16.048063Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "http_sink" })] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:16.048079Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Sent item to fanout.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:16.048093Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Internal log [Events received.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.052005Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Internal log [Submitting service request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.052275Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Internal log [Sending HTTP request.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.052328Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout waiting for idle connection: ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.052367Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.052620Z DEBUG hyper::client::connect::dns: Internal log [resolving host="mock-sink"] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.053710Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [connecting to 172.21.0.3:8080] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054101Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: log: Internal log [registering event source with poller: token=Token(281473167917184), interests=READABLE | WRITABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054212Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [connected to 172.21.0.3:8080] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054252Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::conn: Internal log [client handshake Http1] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054264Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::client: Internal log [handshake complete, spawning background dispatcher task] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054327Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054406Z TRACE encode_headers: hyper::proto::h1::role: Internal log [Client::encode method=POST, body=Some(Known(176))] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054443Z TRACE hyper::proto::h1::io: Internal log [buffer.flatten] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.054638Z DEBUG hyper::proto::h1::io: Internal log [flushed 443 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.055709Z TRACE hyper::proto::h1::conn: Internal log [Conn::read_head] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.055898Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.055938Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse Complete(125)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056003Z TRACE parse_headers: hyper::proto::h1::role: Internal log [neither Transfer-Encoding nor Content-Length] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056019Z DEBUG hyper::proto::h1::io: Internal log [parsed 3 headers] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056025Z DEBUG hyper::proto::h1::conn: Internal log [incoming body is close-delimited] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056030Z TRACE hyper::proto::h1::conn: Internal log [remote disabling keep-alive] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056132Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Internal log [HTTP response.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056816Z DEBUG hyper::proto::h1::conn: Internal log [incoming body completed] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056843Z TRACE hyper::proto::h1::conn: Internal log [try_keep_alive({role=client}): could keep-alive, but status = Disabled] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056851Z TRACE hyper::proto::h1::conn: Internal log [State::close()] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.056992Z TRACE hyper::proto::h1::conn: Internal log [shut down IO complete] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.057200Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector::sinks::util::retries: Not retriable; dropping the request. reason="Http status: 401 Unauthorized"
+vector-1  | 2026-01-26T20:36:17.057234Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_stream::driver: Internal log [Service call succeeded.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:17.057301Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::service: Service call failed. No retries or retries exhausted. error=None request_id=1 error_type="request_failed" stage="sending"
+vector-1  | 2026-01-26T20:36:17.057352Z ERROR sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::component_events_dropped: Events dropped intentional=false count=1 reason="Service call failed. No retries or retries exhausted."
+vector-1  | 2026-01-26T20:36:19.462291Z TRACE vector: Internal log [Beep.] has been suppressed 9 times.
+vector-1  | 2026-01-26T20:36:19.462315Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:36:20.459419Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:21.502234Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] has been suppressed 25 times.
+vector-1  | 2026-01-26T20:36:21.502260Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff8b250780
+vector-1  | 2026-01-26T20:36:21.502264Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:24.662422Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] has been suppressed 8 times.
+vector-1  | 2026-01-26T20:36:24.662586Z TRACE notify::inotify: inotify event: Event { wd: WatchDescriptor { id: 1, fd: (Weak) }, mask: EventMask(OPEN), cookie: 0, name: None }
+vector-1  | 2026-01-26T20:36:24.662601Z TRACE log: Internal log [registering event source with poller: token=Token(1), interests=READABLE] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:24.662653Z DEBUG vector::config::watcher: Internal log [Ignoring event.] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:36:24.662700Z DEBUG vector::config::watcher: Ignoring event. event=Event { kind: Access(Open(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:36:24.662713Z DEBUG vector::config::watcher: Configuration file change detected. event=Event { kind: Modify(Data(Any)), paths: ["/etc/vector/vector.yaml"], attr:tracker: None, attr:flag: None, attr:info: None, attr:source: None }
+vector-1  | 2026-01-26T20:36:25.758698Z DEBUG vector::config::watcher: Collected file change events during delay period. paths=1 delay=1s
+vector-1  | 2026-01-26T20:36:25.758889Z DEBUG vector::config::watcher: Reloaded paths.
+vector-1  | 2026-01-26T20:36:25.758904Z  INFO vector::config::watcher: Configuration file changed.
+vector-1  | 2026-01-26T20:36:25.759101Z DEBUG vector::config::watcher: Internal log [Ignoring event.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:25.759215Z DEBUG vector::config::loading::secret: No secret placeholder found, skipping secret resolution.
+vector-1  | 2026-01-26T20:36:25.759684Z  INFO vector::topology::running: Reloading running topology with new configuration.
+vector-1  | 2026-01-26T20:36:25.759815Z DEBUG vector::topology::running: Changing sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:25.759858Z DEBUG vector::topology::running: Pausing component input in fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:36:25.759875Z DEBUG vector::topology::running: Waiting for sink to shutdown. component_id=http_sink
+vector-1  | 2026-01-26T20:36:25.761324Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink finished normally.
+vector-1  | 2026-01-26T20:36:25.761468Z DEBUG vector::topology::builder: Building new sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:25.769015Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:25.769061Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Fetching system root certs.
+vector-1  | 2026-01-26T20:36:25.776623Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector_core::tls::settings: Internal log [Fetching system root certs.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:25.781384Z  INFO vector::topology::running: Running healthchecks.
+vector-1  | 2026-01-26T20:36:25.781439Z DEBUG vector::topology::running: Connecting changed/added component(s).
+vector-1  | 2026-01-26T20:36:25.781447Z DEBUG vector::topology::running: Connecting inputs for sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:25.781456Z DEBUG vector::topology::running: Replacing component input in fanout. component_id=http_sink fanout_id=kafka_source
+vector-1  | 2026-01-26T20:36:25.781484Z DEBUG vector::topology::running: Spawning changed sink. component_id=http_sink
+vector-1  | 2026-01-26T20:36:25.781498Z  INFO vector::topology::builder: Healthcheck passed.
+vector-1  | 2026-01-26T20:36:25.781511Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}: vector::topology::builder: Sink starting.
+vector-1  | 2026-01-26T20:36:25.781517Z  INFO vector::topology::running: New configuration loaded successfully.
+vector-1  | 2026-01-26T20:36:25.781523Z  INFO vector: Vector has reloaded. path=[File("/etc/vector/vector.yaml", None)] internal_log_rate_limit=false
+vector-1  | 2026-01-26T20:36:26.515759Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Bytes received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:26.515772Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Bytes received. byte_size=75 protocol=tcp topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:36:26.515818Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Internal log [Events received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:26.515819Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector::internal_events::kafka: Events received. count=1 byte_size=70 topic="test-topic" partition=0
+vector-1  | 2026-01-26T20:36:26.515850Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] has been suppressed 3 times.
+vector-1  | 2026-01-26T20:36:26.515855Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_buffers::topology::channel::limited_queue: Sent item.
+vector-1  | 2026-01-26T20:36:26.515858Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Internal log [Events sent.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:26.515859Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=176 output=_default
+vector-1  | 2026-01-26T20:36:26.515889Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "http_sink" })] has been suppressed 2 times.
+vector-1  | 2026-01-26T20:36:26.515894Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Processing control message outside of send: ControlMessage::Pause(ComponentKey { id: "http_sink" })
+vector-1  | 2026-01-26T20:36:26.515897Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Processing control message outside of send: ControlMessage::Add(ComponentKey { id: "http_sink" })] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:26.515904Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_buffers::topology::channel::limited_queue: Internal log [Sent item.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:26.515908Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Internal log [Sent item to fanout.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:26.515909Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}: vector_core::fanout: Sent item to fanout.
+vector-1  | 2026-01-26T20:36:26.515921Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Internal log [Events received.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:26.515926Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_common::internal_event::events_received: Events received. count=1 byte_size=176
+vector-1  | 2026-01-26T20:36:27.518248Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Internal log [Submitting service request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.518300Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}: vector_stream::driver: Submitting service request. in_flight_requests=0 request_id=1
+vector-1  | 2026-01-26T20:36:27.518540Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Internal log [Sending HTTP request.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.518563Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Sending HTTP request. uri=http://mock-sink:8080/events method=POST version=HTTP/1.1 headers={"content-type": "application/json", "authorization": Sensitive, "accept-encoding": "zstd,gzip,deflate,br", "user-agent": "Vector/0.52.0 (aarch64-unknown-linux-gnu ca5bf26 2025-12-16 14:56:07.290167996)"} body=[176 bytes]
+vector-1  | 2026-01-26T20:36:27.518629Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout waiting for idle connection: ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.518644Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout waiting for idle connection: ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:36:27.518708Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.518724Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Http::connect; scheme=Some("http"), host=Some("mock-sink"), port=Some(Port(8080))
+vector-1  | 2026-01-26T20:36:27.519254Z DEBUG hyper::client::connect::dns: Internal log [resolving host="mock-sink"] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.519364Z DEBUG hyper::client::connect::dns: resolving host="mock-sink"
+vector-1  | 2026-01-26T20:36:27.520925Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [connecting to 172.21.0.3:8080] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.520948Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connecting to 172.21.0.3:8080
+vector-1  | 2026-01-26T20:36:27.521380Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: log: Internal log [registering event source with poller: token=Token(281473167917184), interests=READABLE | WRITABLE] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.521403Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: mio::poll: registering event source with poller: token=Token(281473201134720), interests=READABLE | WRITABLE
+vector-1  | 2026-01-26T20:36:27.521792Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: Internal log [connected to 172.21.0.3:8080] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.521812Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::connect::http: connected to 172.21.0.3:8080
+vector-1  | 2026-01-26T20:36:27.521832Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::conn: Internal log [client handshake Http1] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.521835Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::conn: client handshake Http1
+vector-1  | 2026-01-26T20:36:27.521941Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::client: Internal log [handshake complete, spawning background dispatcher task] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.521947Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::client: handshake complete, spawning background dispatcher task
+vector-1  | 2026-01-26T20:36:27.522039Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:36:27.522045Z TRACE hyper::proto::h1::conn: flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }
+vector-1  | 2026-01-26T20:36:27.522075Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: Internal log [checkout dropped for ("http", mock-sink:8080)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.522080Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: hyper::client::pool: checkout dropped for ("http", mock-sink:8080)
+vector-1  | 2026-01-26T20:36:27.522158Z TRACE encode_headers: hyper::proto::h1::role: Internal log [Client::encode method=POST, body=Some(Known(176))] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.522161Z TRACE encode_headers: hyper::proto::h1::role: Client::encode method=POST, body=Some(Known(176))
+vector-1  | 2026-01-26T20:36:27.522200Z TRACE hyper::proto::h1::io: Internal log [buffer.flatten] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.522201Z TRACE hyper::proto::h1::io: buffer.flatten self.len=267 buf.len=176
+vector-1  | 2026-01-26T20:36:27.522421Z DEBUG hyper::proto::h1::io: Internal log [flushed 443 bytes] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.522438Z DEBUG hyper::proto::h1::io: flushed 443 bytes
+vector-1  | 2026-01-26T20:36:27.522448Z TRACE hyper::proto::h1::conn: Internal log [flushed({role=client}): State { reading: Init, writing: Init, keep_alive: Busy }] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:27.524154Z TRACE hyper::proto::h1::conn: Internal log [Conn::read_head] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524182Z TRACE hyper::proto::h1::conn: Conn::read_head
+vector-1  | 2026-01-26T20:36:27.524201Z TRACE hyper::proto::h1::io: Internal log [received 125 bytes] has been suppressed 5 times.
+vector-1  | 2026-01-26T20:36:27.524203Z TRACE hyper::proto::h1::io: received 125 bytes
+vector-1  | 2026-01-26T20:36:27.524223Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524226Z TRACE parse_headers: hyper::proto::h1::role: Response.parse bytes=125
+vector-1  | 2026-01-26T20:36:27.524236Z TRACE parse_headers: hyper::proto::h1::role: Internal log [Response.parse Complete(125)] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524238Z TRACE parse_headers: hyper::proto::h1::role: Response.parse Complete(125)
+vector-1  | 2026-01-26T20:36:27.524257Z TRACE parse_headers: hyper::proto::h1::role: Internal log [neither Transfer-Encoding nor Content-Length] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524258Z TRACE parse_headers: hyper::proto::h1::role: neither Transfer-Encoding nor Content-Length
+vector-1  | 2026-01-26T20:36:27.524267Z DEBUG hyper::proto::h1::io: Internal log [parsed 3 headers] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524269Z DEBUG hyper::proto::h1::io: parsed 3 headers
+vector-1  | 2026-01-26T20:36:27.524273Z DEBUG hyper::proto::h1::conn: Internal log [incoming body is close-delimited] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524274Z DEBUG hyper::proto::h1::conn: incoming body is close-delimited
+vector-1  | 2026-01-26T20:36:27.524278Z TRACE hyper::proto::h1::conn: Internal log [remote disabling keep-alive] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524279Z TRACE hyper::proto::h1::conn: remote disabling keep-alive
+vector-1  | 2026-01-26T20:36:27.524297Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] has been suppressed 6 times.
+vector-1  | 2026-01-26T20:36:27.524298Z TRACE hyper::proto::h1::decode: decode; state=Eof(false)
+vector-1  | 2026-01-26T20:36:27.524362Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: Internal log [HTTP response.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524369Z DEBUG sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}:http: vector::internal_events::http_client: HTTP response. status=200 OK version=HTTP/1.0 headers={"server": "BaseHTTP/0.6 Python/3.11.14", "date": "Mon, 26 Jan 2026 20:36:27 GMT", "content-type": "application/json"} body=[unknown]
+vector-1  | 2026-01-26T20:36:27.524529Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector::internal_events::common: Bytes sent. byte_size=176 protocol=http endpoint=http://mock-sink:8080/events
+vector-1  | 2026-01-26T20:36:27.524614Z TRACE hyper::proto::h1::decode: Internal log [decode; state=Eof(false)] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:27.524634Z TRACE hyper::proto::h1::io: Internal log [received 125 bytes] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:27.524678Z DEBUG hyper::proto::h1::conn: Internal log [incoming body completed] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524679Z DEBUG hyper::proto::h1::conn: incoming body completed
+vector-1  | 2026-01-26T20:36:27.524684Z TRACE hyper::proto::h1::conn: Internal log [try_keep_alive({role=client}): could keep-alive, but status = Disabled] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524687Z TRACE hyper::proto::h1::conn: try_keep_alive({role=client}): could keep-alive, but status = Disabled
+vector-1  | 2026-01-26T20:36:27.524690Z TRACE hyper::proto::h1::conn: Internal log [State::close()] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524691Z TRACE hyper::proto::h1::conn: State::close()
+vector-1  | 2026-01-26T20:36:27.524797Z TRACE hyper::proto::h1::conn: Internal log [shut down IO complete] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524806Z TRACE hyper::proto::h1::conn: shut down IO complete
+vector-1  | 2026-01-26T20:36:27.524884Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_stream::driver: Internal log [Service call succeeded.] has been suppressed 1 times.
+vector-1  | 2026-01-26T20:36:27.524897Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_stream::driver: Service call succeeded. request_id=1
+vector-1  | 2026-01-26T20:36:27.524922Z TRACE sink{component_kind="sink" component_id=http_sink component_type=http}:request{request_id=1}: vector_common::internal_event::events_sent: Events sent. count=1 byte_size=174
+vector-1  | 2026-01-26T20:36:30.459601Z TRACE vector: Internal log [Beep.] has been suppressed 10 times.
+vector-1  | 2026-01-26T20:36:30.459648Z TRACE vector: Beep.
+vector-1  | 2026-01-26T20:36:31.458281Z TRACE vector: Internal log [Beep.] is being suppressed to avoid flooding.
+vector-1  | 2026-01-26T20:36:31.531664Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] has been suppressed 27 times.
+vector-1  | 2026-01-26T20:36:31.531686Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: rdkafka::util: Destroying event: 0xffff8b250c80
+vector-1  | 2026-01-26T20:36:31.531699Z TRACE source{component_kind="source" component_id=kafka_source component_type=kafka}:kafka_source: log: Internal log [Create new librdkafka client 0xffff96747000] is being suppressed to avoid flooding.
+
+==========================================
+Full Mock Sink Logs
+==========================================
+
+time="2026-01-26T21:36:40+01:00" level=warning msg="/Users/joelkoenka/workspace/joel/vector/reproduction/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+mock-sink-1  | Mock sink server starting on port 8080...
+mock-sink-1  |   - Valid token: 'Bearer valid-token' -> 200 OK
+mock-sink-1  |   - Invalid token: 'Bearer invalid-token' -> 401 Unauthorized
+mock-sink-1  |   - Health check: GET /health
+mock-sink-1  |   - Stats: GET /stats
+mock-sink-1  | 
+mock-sink-1  | [2026-01-26T20:36:09.426309] ✅ SUCCESS: Received 1 events with valid token
+mock-sink-1  |   Event 1: {"headers": {}, "id": 1, "message": "Test message 1", "message_key": null, "offset": 0, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:36:05.546Z", "topic": "test-topic"}
+mock-sink-1  | [2026-01-26T20:36:17.055295] ❌ REJECTED: 1 events with invalid token (401 Unauthorized)
+mock-sink-1  |   Rejected: {"headers": {}, "id": 2, "message": "Test message 2", "message_key": null, "offset": 1, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:36:16.029Z", "topic": "test-topic"}
+mock-sink-1  | [2026-01-26T20:36:27.523444] ✅ SUCCESS: Received 1 events with valid token
+mock-sink-1  |   Event 2: {"headers": {}, "id": 3, "message": "Test message 3", "message_key": null, "offset": 2, "partition": 0, "source_type": "kafka", "timestamp": "2026-01-26T20:36:26.499Z", "topic": "test-topic"}
+
+==========================================
+Cleanup
+==========================================
+
+Completed at: Mon Jan 26 21:36:40 CET 2026
+
+Debug output saved to: reproduction_debug_output.txt
+
+To view full logs: docker-compose logs
+To stop services: docker-compose down -v
+

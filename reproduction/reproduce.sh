@@ -71,10 +71,11 @@ docker-compose exec -T kafka kafka-topics \
     --replication-factor 1
 
 echo ""
-echo "Step 4: Restarting Vector to ensure clean state..."
-docker-compose restart vector > /dev/null 2>&1
-sleep 10
-echo -e "${GREEN}✓${NC} Vector restarted and ready"
+echo "Step 4: Initialize Vector with good token config..."
+docker-compose exec -T vector cp /etc/vector/configs/good_token.yaml /etc/vector/vector.yaml
+echo "Waiting for Vector to load config..."
+sleep 5
+echo -e "${GREEN}✓${NC} Vector ready (started with good token config)"
 
 echo ""
 echo "=========================================="
@@ -82,14 +83,59 @@ echo "Starting Reproduction Test"
 echo "=========================================="
 echo ""
 
+# Global variable to track last log line count
+LAST_LOG_LINE_COUNT=0
+
+# Function to initialize reload detection (capture current log state)
+init_wait_for_reload() {
+    LAST_LOG_LINE_COUNT=$(docker-compose logs vector 2>/dev/null | wc -l)
+}
+
+# Function to wait for Vector reload (only look for new logs)
+wait_for_reload() {
+    echo "  Waiting for Vector to reload..."
+    local timeout=30
+    local elapsed=0
+    while [ $elapsed -lt $timeout ]; do
+        # Get only new logs since last checkpoint
+        local new_logs=$(docker-compose logs vector 2>/dev/null | tail -n +$((LAST_LOG_LINE_COUNT + 1)))
+        if echo "$new_logs" | grep -q "Vector has reloaded"; then
+            echo -e "  ${GREEN}✓${NC} Vector reloaded"
+            return 0
+        fi
+        sleep 1
+        elapsed=$((elapsed + 1))
+    done
+    echo -e "  ${YELLOW}⚠${NC} Timeout waiting for reload (continuing anyway)"
+    return 1
+}
+
+# Function to switch config
+switch_config() {
+    local config_file=$1
+    local description=$2
+
+    echo -e "${YELLOW}Switching to $description...${NC}"
+
+    # Capture current log state before making changes
+    init_wait_for_reload
+
+    docker-compose exec -T vector cp /etc/vector/configs/$config_file /etc/vector/vector.yaml
+
+    echo "  Verifying config change..."
+    docker-compose exec -T vector grep "token:" /etc/vector/vector.yaml
+
+    wait_for_reload
+}
+
 # Function to send messages to Kafka
 send_messages() {
     local count=$1
     local start_id=$2
     local description=$3
-    
+
     echo -e "${YELLOW}Sending $count messages ($description)...${NC}"
-    
+
     for i in $(seq 1 $count); do
         local id=$((start_id + i - 1))
         local message="{\"id\": $id, \"message\": \"Test message $id\", \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}"
@@ -97,37 +143,27 @@ send_messages() {
             --bootstrap-server localhost:9092 \
             --topic test-topic
     done
-    
+
     echo "  Sent $count messages (IDs $start_id-$((start_id + count - 1)))"
     sleep 3
 }
 
 # Phase 1: Send 1 message with VALID token
 echo -e "${GREEN}Phase 1: Sending 1 message with VALID token${NC}"
-echo "  Ensuring Vector config has valid token (editing inside container)..."
-docker-compose exec -T vector sh -c "sed 's/token: \".*\"/token: \"valid-token\"/' /etc/vector/vector.yaml > /tmp/vector.yaml && cat /tmp/vector.yaml > /etc/vector/vector.yaml"
-echo "  Waiting for Vector to reload config..."
-sleep 5
 send_messages 1 1 "valid token"
 sleep 5
 
 # Phase 2: Send 1 message with INVALID token
 echo ""
 echo -e "${RED}Phase 2: Sending 1 message with INVALID token${NC}"
-echo "  Updating Vector config to use INVALID token (editing inside container)..."
-docker-compose exec -T vector sh -c "sed 's/token: \".*\"/token: \"invalid-token\"/' /etc/vector/vector.yaml > /tmp/vector.yaml && cat /tmp/vector.yaml > /etc/vector/vector.yaml"
-echo "  Waiting for Vector to reload config..."
-sleep 5
+switch_config "bad_token.yaml" "INVALID token config"
 send_messages 1 2 "invalid token - THIS WILL BE LOST"
 sleep 5
 
 # Phase 3: Send 1 message with VALID token again
 echo ""
 echo -e "${GREEN}Phase 3: Sending 1 message with VALID token again${NC}"
-echo "  Updating Vector config back to VALID token (editing inside container)..."
-docker-compose exec -T vector sh -c "sed 's/token: \".*\"/token: \"valid-token\"/' /etc/vector/vector.yaml > /tmp/vector.yaml && cat /tmp/vector.yaml > /etc/vector/vector.yaml"
-echo "  Waiting for Vector to reload config..."
-sleep 5
+switch_config "good_token.yaml" "VALID token config"
 send_messages 1 3 "valid token"
 sleep 10
 

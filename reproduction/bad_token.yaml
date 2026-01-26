@@ -1,6 +1,6 @@
 data_dir: /var/lib/vector
 
-# Kafka source with acknowledgements enabled
+# Kafka source
 sources:
   kafka_source:
     type: kafka
@@ -9,10 +9,6 @@ sources:
     topics:
       - "test-topic"
     auto_offset_reset: "earliest"
-    
-    # CRITICAL: Acknowledgements must be enabled to reproduce the bug
-    acknowledgements:
-      enabled: true
     
     # Commit interval - how often Kafka commits offsets
     commit_interval_ms: 5000
@@ -30,11 +26,14 @@ sinks:
     encoding:
       codec: json
     
-    # Authentication header - this will be controlled by the test script
-    # The test script will edit this file to change the token (triggering a config reload)
+    # CRITICAL: Acknowledgements must be enabled to reproduce the bug
+    acknowledgements:
+      enabled: true
+    
+    # Authentication header - INVALID TOKEN
     auth:
       strategy: bearer
-      token: "valid-token"
+      token: "invalid-token"
     
     # Batch settings
     batch:
