@@ -1,0 +1,7 @@
+# Generated output files
+reproduction_debug_output.txt
+output.log
+
+# Docker volumes and state
+.docker/
+

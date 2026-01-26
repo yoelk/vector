@@ -2,6 +2,34 @@
 
 set -e
 
+# Parse command line arguments
+USE_LOCAL=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --local)
+            USE_LOCAL=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [--local]"
+            echo "  --local: Use locally-built Vector (default: use DockerHub image)"
+            exit 1
+            ;;
+    esac
+done
+
+# Determine which Vector service to use
+if [ "$USE_LOCAL" = true ]; then
+    VECTOR_SERVICE="vector-local"
+    DOCKER_COMPOSE_PROFILE="local"
+    VECTOR_SOURCE="locally-built binary"
+else
+    VECTOR_SERVICE="vector-dockerhub"
+    DOCKER_COMPOSE_PROFILE="dockerhub"
+    VECTOR_SOURCE="DockerHub image (timberio/vector:0.52.0-debian)"
+fi
+
 # Output file for debug logs
 OUTPUT_FILE="reproduction_debug_output.txt"
 
@@ -9,6 +37,7 @@ echo "=========================================="
 echo "Vector Kafka Data Loss Bug Reproduction"
 echo "=========================================="
 echo ""
+echo "Vector source: $VECTOR_SOURCE"
 echo "Debug output will be saved to: $OUTPUT_FILE"
 echo ""
 
@@ -21,6 +50,51 @@ NC='\033[0m' # No Color
 # Change to the reproduction directory
 cd "$(dirname "$0")"
 
+# Global variable to track last log line count
+LAST_LOG_LINE_COUNT=0
+
+# Function to initialize reload detection (capture current log state)
+init_wait_for_reload() {
+    LAST_LOG_LINE_COUNT=$(docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs "$VECTOR_SERVICE" 2>/dev/null | wc -l)
+}
+
+# Function to wait for Vector reload (only look for new logs)
+wait_for_reload() {
+    echo "  Waiting for Vector to reload..."
+    local timeout=30
+    local elapsed=0
+    while [ $elapsed -lt $timeout ]; do
+        # Get only new logs since last checkpoint
+        local new_logs=$(docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs "$VECTOR_SERVICE" 2>/dev/null | tail -n +$((LAST_LOG_LINE_COUNT + 1)))
+        if echo "$new_logs" | grep -q "Vector has reloaded"; then
+            echo -e "  ${GREEN}✓${NC} Vector reloaded"
+            return 0
+        fi
+        sleep 1
+        elapsed=$((elapsed + 1))
+    done
+    echo -e "  ${YELLOW}⚠${NC} Timeout waiting for reload (continuing anyway)"
+    return 1
+}
+
+# Function to switch config
+switch_config() {
+    local config_file=$1
+    local description=$2
+
+    echo -e "${YELLOW}Switching to $description...${NC}"
+
+    # Capture current log state before making changes
+    init_wait_for_reload
+
+    docker-compose --profile "$DOCKER_COMPOSE_PROFILE" exec -T "$VECTOR_SERVICE" cp /etc/vector/source_configs/$config_file /etc/vector/configs/vector.yaml
+
+    echo "  Verifying config change..."
+    docker-compose --profile "$DOCKER_COMPOSE_PROFILE" exec -T "$VECTOR_SERVICE" grep "token:" /etc/vector/configs/vector.yaml
+
+    wait_for_reload
+}
+
 # Start logging to file
 exec > >(tee -a "$OUTPUT_FILE") 2>&1
 
@@ -31,8 +105,8 @@ echo "=========================================="
 echo ""
 
 echo "Step 1: Starting Docker Compose services..."
-docker-compose down -v 2>/dev/null || true
-docker-compose up -d
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" down -v 2>/dev/null || true
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" up -d
 
 echo ""
 echo "Step 2: Waiting for services to be ready..."
@@ -72,7 +146,7 @@ docker-compose exec -T kafka kafka-topics \
 
 echo ""
 echo "Step 4: Initialize Vector with good token config..."
-docker-compose exec -T vector cp /etc/vector/configs/good_token.yaml /etc/vector/vector.yaml
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" exec -T "$VECTOR_SERVICE" cp /etc/vector/source_configs/good_token.yaml /etc/vector/configs/vector.yaml
 echo "Waiting for Vector to load config..."
 sleep 5
 echo -e "${GREEN}✓${NC} Vector ready (started with good token config)"
@@ -82,51 +156,6 @@ echo "=========================================="
 echo "Starting Reproduction Test"
 echo "=========================================="
 echo ""
-
-# Global variable to track last log line count
-LAST_LOG_LINE_COUNT=0
-
-# Function to initialize reload detection (capture current log state)
-init_wait_for_reload() {
-    LAST_LOG_LINE_COUNT=$(docker-compose logs vector 2>/dev/null | wc -l)
-}
-
-# Function to wait for Vector reload (only look for new logs)
-wait_for_reload() {
-    echo "  Waiting for Vector to reload..."
-    local timeout=30
-    local elapsed=0
-    while [ $elapsed -lt $timeout ]; do
-        # Get only new logs since last checkpoint
-        local new_logs=$(docker-compose logs vector 2>/dev/null | tail -n +$((LAST_LOG_LINE_COUNT + 1)))
-        if echo "$new_logs" | grep -q "Vector has reloaded"; then
-            echo -e "  ${GREEN}✓${NC} Vector reloaded"
-            return 0
-        fi
-        sleep 1
-        elapsed=$((elapsed + 1))
-    done
-    echo -e "  ${YELLOW}⚠${NC} Timeout waiting for reload (continuing anyway)"
-    return 1
-}
-
-# Function to switch config
-switch_config() {
-    local config_file=$1
-    local description=$2
-
-    echo -e "${YELLOW}Switching to $description...${NC}"
-
-    # Capture current log state before making changes
-    init_wait_for_reload
-
-    docker-compose exec -T vector cp /etc/vector/configs/$config_file /etc/vector/vector.yaml
-
-    echo "  Verifying config change..."
-    docker-compose exec -T vector grep "token:" /etc/vector/vector.yaml
-
-    wait_for_reload
-}
 
 # Function to send messages to Kafka
 send_messages() {
@@ -205,11 +234,11 @@ echo "Logs"
 echo "=========================================="
 echo ""
 echo "Mock sink logs (showing rejections):"
-docker-compose logs mock-sink | grep -E "(SUCCESS|REJECTED)" | tail -20
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs mock-sink | grep -E "(SUCCESS|REJECTED)" | tail -20
 
 echo ""
 echo "Vector logs (showing dropped events):"
-docker-compose logs vector | grep -i "drop" | tail -10
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs "$VECTOR_SERVICE" | grep -i "drop" | tail -10
 
 echo ""
 echo "=========================================="
@@ -218,14 +247,14 @@ echo "=========================================="
 echo ""
 echo "Capturing full Vector logs with debug output..."
 echo ""
-docker-compose logs vector
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs "$VECTOR_SERVICE"
 
 echo ""
 echo "=========================================="
 echo "Full Mock Sink Logs"
 echo "=========================================="
 echo ""
-docker-compose logs mock-sink
+docker-compose --profile "$DOCKER_COMPOSE_PROFILE" logs mock-sink
 
 echo ""
 echo "=========================================="

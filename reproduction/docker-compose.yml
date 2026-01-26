@@ -37,20 +37,59 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
 
-  # Vector
-  vector:
+  # Vector - using DockerHub image
+  vector-dockerhub:
     image: timberio/vector:0.52.0-debian
+    platform: linux/arm64
     depends_on:
       - kafka
       - mock-sink
     volumes:
-      - ./good_token.yaml:/etc/vector/configs/good_token.yaml:ro
-      - ./bad_token.yaml:/etc/vector/configs/bad_token.yaml:ro
-      - vector-config:/etc/vector
-    command: ["--config", "/etc/vector/vector.yaml", "--watch-config", "-vvv"]
+      - ./good_token.yaml:/etc/vector/source_configs/good_token.yaml:ro
+      - ./bad_token.yaml:/etc/vector/source_configs/bad_token.yaml:ro
+      - vector-config:/etc/vector/configs
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        while [ ! -f /etc/vector/configs/vector.yaml ]; do
+          echo 'Waiting for config...'
+          sleep 1
+        done
+        exec /usr/bin/vector --config /etc/vector/configs/vector.yaml --watch-config -vvv
     environment:
       - VECTOR_LOG=trace
       - RUST_BACKTRACE=full
+    profiles:
+      - dockerhub
+
+  # Vector - using locally-built binary
+  vector-local:
+    build:
+      context: ..
+      dockerfile: reproduction/Dockerfile.local
+    platform: linux/arm64
+    depends_on:
+      - kafka
+      - mock-sink
+    volumes:
+      - ./good_token.yaml:/etc/vector/source_configs/good_token.yaml:ro
+      - ./bad_token.yaml:/etc/vector/source_configs/bad_token.yaml:ro
+      - vector-config:/etc/vector/configs
+    command:
+      - /bin/sh
+      - -c
+      - |
+        while [ ! -f /etc/vector/configs/vector.yaml ]; do
+          echo 'Waiting for config...'
+          sleep 1
+        done
+        exec /usr/local/bin/vector --config /etc/vector/configs/vector.yaml --watch-config -vvv
+    environment:
+      - VECTOR_LOG=trace
+      - RUST_BACKTRACE=full
+    profiles:
+      - local
 
 volumes:
   vector-config:

@@ -1,0 +1,28 @@
+# Dockerfile for running locally-built Vector binary
+# This uses ARM64 Debian to match the Mac ARM64 architecture
+
+FROM --platform=linux/arm64 debian:bookworm-slim
+
+# Install runtime dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        tzdata \
+        libssl3 \
+        zlib1g && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the locally-built Vector binary
+COPY ../target/release/vector /usr/local/bin/vector
+
+# Make it executable
+RUN chmod +x /usr/local/bin/vector
+
+# Create Vector data directory
+RUN mkdir -p /var/lib/vector
+
+# Smoke test
+RUN /usr/local/bin/vector --version
+
+ENTRYPOINT ["/usr/local/bin/vector"]
+

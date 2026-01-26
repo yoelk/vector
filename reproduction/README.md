@@ -1,86 +1,91 @@
 # Vector Kafka Data Loss Bug Reproduction
 
-This directory contains a **complete, working reproduction setup** for demonstrating a critical data loss bug in Vector's Kafka source when using end-to-end acknowledgements with sinks that return authentication errors (401/403).
-
-## ✅ Bug Successfully Reproduced
-
-This reproduction has been **tested and confirmed working**. It successfully demonstrates that Vector loses messages when:
-- Kafka source has acknowledgements enabled
-- HTTP sink receives 401/403 authentication errors
-- Subsequent messages with valid credentials are processed
-
-## Prerequisites
-
-- Docker and Docker Compose
-- `jq` (for parsing JSON in the test script)
-- `curl` (for health checks)
+This directory contains a complete, automated reproduction of a critical data loss bug in Vector where Kafka offsets are committed even when HTTP sink requests fail with 4xx errors.
 
 ## Quick Start
 
 ```bash
 cd reproduction
-chmod +x reproduce.sh
 ./reproduce.sh
 ```
 
-The script will:
-1. Start all services (Kafka, Vector, mock HTTP sink)
-2. Send 3 messages in 3 phases:
-   - **Phase 1**: 1 message with valid token → ✅ Successfully delivered
-   - **Phase 2**: 1 message with invalid token → ❌   - **Phase 2**: 1 message with invalidage with valid token → ✅ Successfully delivered
-3. Display results showing only 2 messages received (message 2 is permanently lost)
+The script will automatically:
+1. Build a custom Vector binary with your local changes
+2. Start all required services (Kafka, Zookeeper, Vector, Mock HTTP Sink)
+3. Send 3 test messages with alternating valid/invalid auth tokens
+4. Demonstrate that message 2 is permanently lost
+5. Save detailed logs to `reproduction_debug_output.txt`
 
-## Actual Test Output
+## Expected Output
 
 ```
-Expected: 3 messages sent (IDs 1, 2, 3)
-Actual:   2 messages received
-
-✗ BUG CONFIRMED: Only 2 messages received!
-  Message 2 (sent with invalid token) was PERMANENTLY LOST
-
-Received message IDs:
-1 3 
-
-This demonstrates the data loss bug in Vector's Kafka source.
-Even though acknowledgements are enabled, rejected events are lost.
+Event 1 (offset 0): ✅ SUCCESS - Delivered to sink
+Event 2 (offset 1): ❌ REJECTED (401) - BUT OFFSET WAS COMMITTED
+Event 3 (offset 2): ✅ SUCCESS - Delivered to sink
 ```
 
-### Mock Sink Logs
+**Result**: The mock sink only receives events 1 and 3. Event 2 is permanently lost.
+
+## Architecture
+
 ```
-✅ SUCCESS: Received ✅ SUCCESS: Reali✅ SUCCESS: Received ✅ en✅ SUCCESS: Received ✅ SUCCESS: Reali✅� ✅ SUCCESS: Received ✅ Swith valid token
-```````` V```````` V````
-ERROR: Not retriable; dERROR: Not reeqERst.ERROR: Not retrtaERROR: Not retriable; dERROR: Not reeqERst.ERROR: Noonal=false count=1 reason="Service call failed..."
+┌─────────┐     ┌────────┐     ┌────────┐     ┌───────────┐
+│ Kafka   │────▶│ Vector │────▶│  HTTP  │────▶│ Mock Sink │
+│ Topic   │     │        │     │  Sink  │     │ (Python)  │
+└─────────┘     └────────┘     └────────┘     └───────────┘
+                    │                               │
+                    │                               │
+                    └──── Config Reload ────────────┘
+                          (good/bad token)
 ```
 
-## The Bug
+## Files
 
-When Vector's Kafka source has acknowledgeWhen Vector's Kafka source has acknowledgeWhen Vector's Kafka source has acknowledgeWhen Vector's Kafka source has acknowledgeWhen Vector's KafkecWhen Vector's Kafka source has acknowledgeWhen Vector's Kafka source has acknowledcorWhen Vector's Kafka seqWhntWhen Vector's Kafka source has acknowlets
-5. Kafka's auto-commit commit5. Kafka's auto-commit commit5. Kafka's auvel5. Kafka's auto-commit commit5. Kafka's auto-commit commiage5. Kafka's auto-commst** ❌
+- **`reproduce.sh`** - Main reproduction script
+- **`docker-compose.yml`** - Service definitions
+- **`Dockerfile.local`** - Builds Vector from local source
+- **`mock_sink.py`** - HTTP server that validates auth tokens
+- **`good_token.yaml`** - Vector config with valid token
+- **`bad_token.yaml`** - Vector config with invalid token
 
 ## How It Works
 
-The reproduction script:
-1. Starts Vector with `--watch-config` flag to enable automatic config reload
-2. Edits the Vector config file **inside the container** to change the authentication token
-3. Vector detects the file change and reloads the configuration
-4. The HTTP sink picks up the new token and uses it for subsequent requests
-5. This allows us to trigger 401 errors in Phase 2 while keeping Vector running
+1. **Phase 1**: Vector starts with valid token, message 1 is delivered successfully
+2. **Phase 2**: Config is reloaded with invalid token, message 2 is rejected (401)
+3. **Phase 3**: Config is reloaded with valid token, message 3 is delivered successfully
 
-## Components
+The bug: Vector commits the Kafka offset for message 2 even though it was rejected, causing permanent data loss.
 
-- **docker-compose.yml**: Defines all services (Kafka, Zookeeper, Vector, mock HTTP sink)
-- **vector.yaml**: Vector configuration with Kafka source and HTTP sink with acknowledgements enabled
-- **mock_sink.py**: Simple HTTP server that returns 200 for valid tokens, 401 for invalid tokens
-- **reproduce.sh**: Automated test script that edits config inside container to trigger reloads
+## Requirements
 
-## Root Cause
+- Docker and Docker Compose
+- Rust toolchain (for building Vector)
+- ~10GB disk space for Docker images
+- ~5 minutes for first run (includes Vector build)
 
-The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bug is The bugatches from advancinThe bug is The bug is T bThe bug is The bug is The bug is The bug is The bug is The bug is The bug isafka source, similar to the existing Pulsar source implementation, to handle rejected events without losing data.
+## Cleanup
 
-## Environment
+```bash
+cd reproduction
+docker compose down -v
+```
 
-- **Vector**: v0.52.0-debian
-- **Kafka**: confluentinc/cp-kafka:7.5.0
-- **Zookeeper**: confluentinc/cp-zookeeper:7.5.0
-- **Python**: 3.11 (for mock sink)
+## Troubleshooting
+
+### Vector container exits immediately
+Check logs: `docker compose logs vector`
+
+### Kafka not ready
+The script waits up to 60 seconds for Kafka. If it times out, try:
+```bash
+docker compose down -v
+./reproduce.sh
+```
+
+### Build fails
+Ensure you have the Rust toolchain installed and enough disk space.
+
+## Next Steps
+
+See `BUG_REPRODUCTION_SUMMARY.md` for detailed analysis and proposed solutions.
+
