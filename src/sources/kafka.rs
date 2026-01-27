@@ -1770,6 +1770,66 @@ mod integration_test {
         send_receive(true, |n| n >= 2, 2, LogNamespace::Vector).await;
     }
 
+    /// Test that the Kafka source properly seeks back and retries messages when they are rejected.
+    /// This test verifies the fix for the issue where rejected messages would cause offset commits
+    /// to be skipped, but the consumer wouldn't seek back to retry them.
+    ///
+    /// The test:
+    /// 1. Sends 5 messages to Kafka
+    /// 2. Rejects the 3rd message on first attempt
+    /// 3. Verifies that Vector seeks back and retries the message
+    /// 4. Confirms all 5 messages are eventually received and committed
+    #[tokio::test]
+    async fn seeks_back_on_rejected_message() {
+        const SEND_COUNT: usize = 5;
+
+        let topic = format!("test-topic-{}", random_string(10));
+        let group_id = format!("test-group-{}", random_string(10));
+        let config = make_config(&topic, &group_id, LogNamespace::Legacy, None);
+
+        // Send 5 messages to Kafka
+        send_events(topic.clone(), 1, SEND_COUNT).await;
+
+        // Reject the 3rd message (index 2) on first attempt, then accept it on retry
+        let attempt_count = std::sync::Arc::new(std::sync::Mutex::new(0));
+        let attempt_count_clone = attempt_count.clone();
+
+        let error_fn = move |n: usize| {
+            if n == 2 {
+                let mut count = attempt_count_clone.lock().unwrap();
+                *count += 1;
+                // Reject on first attempt, accept on retry
+                *count == 1
+            } else {
+                false
+            }
+        };
+
+        let events = assert_source_compliance(&["protocol", "topic", "partition"], async move {
+            let (tx, rx) = SourceSender::new_test_errors(error_fn);
+            let (trigger_shutdown, shutdown_done) =
+                spawn_kafka(tx, config, true, false, LogNamespace::Legacy);
+
+            // Collect all messages - should get all 5 even though one was rejected initially
+            let events = collect_n(rx, SEND_COUNT).await;
+
+            tokio::task::yield_now().await;
+            drop(trigger_shutdown);
+            shutdown_done.await;
+
+            events
+        })
+        .await;
+
+        // Verify we received all 5 messages
+        assert_eq!(events.len(), SEND_COUNT, "Should receive all messages after retry");
+
+        // Verify the offset was committed for all messages (including the retried one)
+        let offset = fetch_tpl_offset(&group_id, &topic, 0);
+        assert_eq!(offset, Offset::from_raw(SEND_COUNT as i64),
+                   "Offset should be committed for all messages including retried ones");
+    }
+
     async fn send_receive(
         acknowledgements: bool,
         error_at: impl Fn(usize) -> bool,
