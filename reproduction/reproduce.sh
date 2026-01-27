@@ -186,13 +186,15 @@ sleep 5
 echo ""
 echo -e "${RED}Phase 2: Sending 1 message with INVALID token${NC}"
 switch_config "bad_token.yaml" "INVALID token config"
+sleep 3  # Give Vector time to reload with invalid token
 send_messages 1 2 "invalid token - THIS WILL BE LOST"
-sleep 5
+sleep 10  # Give Vector time to attempt delivery with invalid token
 
 # Phase 3: Send 1 message with VALID token again
 echo ""
 echo -e "${GREEN}Phase 3: Sending 1 message with VALID token again${NC}"
 switch_config "good_token.yaml" "VALID token config"
+sleep 3  # Give Vector time to reload with valid token
 send_messages 1 3 "valid token"
 sleep 10
 
